@@ -45,19 +45,28 @@ class UserDosen extends CI_Controller
         $id_dosen = $this->session->userdata('nilai_id_dosen');
 
         $data['countMhs'] = $this->mUserDosen->dataIndex(
-            array('penilaian_jadwal.id_penilaian_dosen' => $id_dosen),
+            array(
+                'penilaian_semester.aktif'              => 1,
+                'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
+            ),
             'penilaian_absensi.id_penilaian_mahasiswa',
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->num_rows();
 
         $data['countMkl'] = $this->mUserDosen->dataIndex(
-            array('penilaian_jadwal.id_penilaian_dosen' => $id_dosen),
+            array(
+                'penilaian_semester.aktif'              => 1,
+                'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
+            ),
             'penilaian_jadwal.id_penilaian_matakuliah',
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->num_rows();
 
         $data['dataIndex'] = $this->mUserDosen->dataIndex(
-            array('penilaian_jadwal.id_penilaian_dosen' => $id_dosen),
+            array(
+                'penilaian_semester.aktif'              => 1,
+                'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
+            ),
             'penilaian_mahasiswa.id_penilaian_mahasiswa',
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->result();

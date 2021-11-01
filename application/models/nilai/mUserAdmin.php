@@ -84,6 +84,7 @@ class mUserAdmin extends CI_Model
             ->join('penilaian_absensi', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_absensi.id_penilaian_matakuliah', 'left')
             ->join('penilaian_mahasiswa', 'penilaian_absensi.id_penilaian_mahasiswa = penilaian_mahasiswa.id_penilaian_mahasiswa')
             ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
+            ->where('penilaian_semester.aktif = 1')
             ->group_by($groupby)
             ->order_by($orderby)
             ->get();

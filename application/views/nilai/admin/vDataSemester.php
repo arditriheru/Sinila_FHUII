@@ -59,11 +59,11 @@
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
                                                             <?php if ($d->aktif == 1) { ?>
-                                                                <a href="<?php echo base_url('magang/admin/userAdmin/nonaktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-success btn-xs mb-3" onclick="javascript: return confirm('Yakin non-aktifkan semester?')">
+                                                                <a href="<?php echo base_url('nilai/admin/userAdmin/nonaktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-success btn-xs mb-3" onclick="javascript: return confirm('Yakin non-aktifkan semester?')">
                                                                     <i class="fas fa-check"></i> <?php echo $lan_aktif; ?>
                                                                 </a>
                                                             <?php } else { ?>
-                                                                <a href="<?php echo base_url('magang/admin/userAdmin/aktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-danger btn-xs mb-3" onclick="javascript: return confirm('Yakin aktifkan semester?')">
+                                                                <a href="<?php echo base_url('nilai/admin/userAdmin/aktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-danger btn-xs mb-3" onclick="javascript: return confirm('Yakin aktifkan semester?')">
                                                                     <i class="fas fa-times"></i> <?php echo $lan_nonaktif; ?>
                                                                 </a>
                                                             <?php } ?>
@@ -112,7 +112,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('magang/admin/userAdmin/tambahDataSemesterAksi') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/tambahDataSemesterAksi') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Form Data</h3>
@@ -123,11 +123,11 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label><?php echo $lan_tahun_akademik; ?></label>
-                                        <select name="id_magang_thn_akademik" class="form-control select2" style="width: 100%;" required="">
+                                        <select name="id_penilaian_thn_akademik" class="form-control select2" style="width: 100%;" required="">
                                             <option value="" selected="">Pilih</option>
 
                                             <?php foreach ($dataThnAkad as $d) : ?>
-                                                <option value="<?php echo $d->id_magang_thn_akademik; ?>"><?php echo $d->thn_akademik; ?></option>
+                                                <option value="<?php echo $d->id_penilaian_thn_akademik; ?>"><?php echo $d->thn_akademik; ?></option>
                                             <?php endforeach; ?>
 
                                         </select>
@@ -140,11 +140,6 @@
                                             <option value="1">Ganjil</option>
                                             <option value="2">Genap</option>
                                         </select>
-                                    </div>
-                                    <!-- /.form-group -->
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1"><?php echo $lan_periode_pemagangan; ?></label>
-                                        <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Contoh : 11 Januari - 5 Februari <?php echo date('Y'); ?>" required="">
                                     </div>
                                     <!-- /.form-group -->
                                 </div>
@@ -168,7 +163,7 @@
 
 <!-- modal edit semester -->
 <?php foreach ($dataSemester as $d) : ?>
-    <div class="modal fade" id="modalEditSemester<?php echo $d->id_magang_semester; ?>">
+    <div class="modal fade" id="modalEditSemester<?php echo $d->id_penilaian_semester; ?>">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -178,7 +173,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-prevent" action="<?php echo base_url('magang/admin/userAdmin/editDataSemesterAksi/' . $d->id_magang_semester) ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/editDataSemesterAksi/' . $d->id_penilaian_semester) ?>" method="post" enctype="multipart/form-data">
                         <div class="card card-secondary">
                             <div class="card-header">
                                 <h3 class="card-title">Form Data</h3>
@@ -189,11 +184,11 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label><?php echo $lan_tahun_akademik; ?></label>
-                                            <select name="id_magang_thn_akademik" class="form-control select2" style="width: 100%;" required="">
-                                                <option value="<?php echo $d->id_magang_thn_akademik; ?>" selected=""><?php echo $d->thn_akademik; ?></option>
+                                            <select name="id_penilaian_thn_akademik" class="form-control select2" style="width: 100%;" required="">
+                                                <option value="<?php echo $d->id_penilaian_thn_akademik; ?>" selected=""><?php echo $d->thn_akademik; ?></option>
 
                                                 <?php foreach ($dataThnAkad as $a) : ?>
-                                                    <option value="<?php echo $a->id_magang_thn_akademik; ?>"><?php echo $a->thn_akademik; ?></option>
+                                                    <option value="<?php echo $a->id_penilaian_thn_akademik; ?>"><?php echo $a->thn_akademik; ?></option>
                                                 <?php endforeach; ?>
 
                                             </select>
@@ -206,11 +201,6 @@
                                                 <option value="1">Ganjil</option>
                                                 <option value="2">Genap</option>
                                             </select>
-                                        </div>
-                                        <!-- /.form-group -->
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1"><?php echo $lan_periode_pemagangan; ?></label>
-                                            <input type="text" class="form-control" name="keterangan" id="keterangan" value="<?php echo $d->keterangan; ?>" required="">
                                         </div>
                                         <!-- /.form-group -->
                                     </div>

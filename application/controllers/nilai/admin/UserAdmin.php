@@ -120,12 +120,11 @@ class UserAdmin extends CI_Controller
     public function tambahDataSemesterAksi()
     {
         $data = array(
-            'id_magang_thn_akademik'    => $this->input->post('id_magang_thn_akademik'),
+            'id_penilaian_thn_akademik' => $this->input->post('id_penilaian_thn_akademik'),
             'nama_semester'             => $this->input->post('nama_semester'),
-            'keterangan'                => $this->input->post('keterangan'),
         );
 
-        if (!$this->mUserAdmin->insertData('magang_semester', $data)) {
+        if (!$this->mUserAdmin->insertData('penilaian_semester', $data)) {
 
             $this->session->set_flashdata('success', 'Berhasil menambah data');
             redirect($_SERVER['HTTP_REFERER']);
@@ -139,12 +138,11 @@ class UserAdmin extends CI_Controller
     public function editDataSemesterAksi($id)
     {
         $data = array(
-            'id_magang_thn_akademik'    => $this->input->post('id_magang_thn_akademik'),
+            'id_penilaian_thn_akademik' => $this->input->post('id_penilaian_thn_akademik'),
             'nama_semester'             => $this->input->post('nama_semester'),
-            'keterangan'                => $this->input->post('keterangan'),
         );
 
-        if (!$this->mUserAdmin->updateData('magang_semester', $data, array('id_magang_semester' => $id))) {
+        if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
 
             $this->session->set_flashdata('success', 'Berhasil memperbarui data');
             redirect($_SERVER['HTTP_REFERER']);
@@ -161,7 +159,7 @@ class UserAdmin extends CI_Controller
             'aktif'      => 0,
         );
 
-        if (!$this->mUserAdmin->updateData('magang_semester', $data, array('id_magang_semester' => $id))) {
+        if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
 
             $this->session->set_flashdata('success', 'Berhasil nonaktifkan data');
             redirect($_SERVER['HTTP_REFERER']);
@@ -178,7 +176,7 @@ class UserAdmin extends CI_Controller
             'aktif'      => 1,
         );
 
-        if (!$this->mUserAdmin->updateData('magang_semester', $data, array('id_magang_semester' => $id))) {
+        if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
 
             $this->session->set_flashdata('success', 'Berhasil aktifkan data');
             redirect($_SERVER['HTTP_REFERER']);
