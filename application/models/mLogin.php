@@ -25,11 +25,10 @@ class mLogin extends CI_Model
         }
     }
 
-    public function userDep($where)
+    public function userDosen($where)
     {
         $this->db->select('*');
-        $this->db->from('ta_user_departemen');
-        $this->db->join('departemen', 'ta_user_departemen.id_departemen=departemen.id_departemen');
+        $this->db->from('penilaian_dosen');
         $this->db->where($where);
         return $this->db->get();
     }
@@ -37,24 +36,7 @@ class mLogin extends CI_Model
     public function userMhs($where)
     {
         $this->db->select('*');
-        $this->db->from('mahasiswa');
-        $this->db->where($where);
-        return $this->db->get();
-    }
-
-    public function userDosen($where)
-    {
-        $this->db->select('*');
-        $this->db->from('dosen');
-        $this->db->where($where);
-        return $this->db->get();
-    }
-
-    public function userInstansi($where)
-    {
-        $this->db->select('*');
-        $this->db->from('magang_instansi_pic');
-        $this->db->join('magang_instansi', 'magang_instansi_pic.id_magang_instansi=magang_instansi.id_magang_instansi');
+        $this->db->from('penilaian_mahasiswa');
         $this->db->where($where);
         return $this->db->get();
     }
