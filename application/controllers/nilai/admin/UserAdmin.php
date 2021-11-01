@@ -86,6 +86,111 @@ class UserAdmin extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
+    // Data semester
+    public function dataSemester()
+    {
+        $lang = $this->mUserAdmin->switchLang($this->session->userdata('nilai_bahasa'))->result();
+
+        foreach ($lang as $d) {
+            $data['lan_' . $d->id_multi_bahasa] = $d->translate;
+        }
+
+        $data['title']          = getDateIndo();
+        $data['subtitle']       = "Data Semester";
+
+        $date                   = date('Y') . '/' . date('Y', strtotime('+1 year', strtotime(date('Y'))));
+
+        if (!$this->mUserAdmin->countData('penilaian_thn_akademik', array('thn_akademik' => $date)) > 0) {
+            $this->mUserAdmin->insertData('penilaian_thn_akademik', array(
+                'thn_akademik' => $date
+            ));
+        }
+
+        $data['thn_akademik']   = getThnAkademik();
+        $data['dataSemester']   = $this->mUserAdmin->dataSemester('id_penilaian_semester IS NOT NULL', 'id_penilaian_semester DESC')->result();
+        $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 2')->result();
+        $data['count1']         = $this->mUserAdmin->countData('penilaian_semester', 'id_penilaian_semester IS NOT NULL');
+        $data['count2']         = $this->mUserAdmin->countData('penilaian_thn_akademik', 'id_penilaian_thn_akademik IS NOT NULL');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('nilai/admin/vDataSemester', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function tambahDataSemesterAksi()
+    {
+        $data = array(
+            'id_magang_thn_akademik'    => $this->input->post('id_magang_thn_akademik'),
+            'nama_semester'             => $this->input->post('nama_semester'),
+            'keterangan'                => $this->input->post('keterangan'),
+        );
+
+        if (!$this->mUserAdmin->insertData('magang_semester', $data)) {
+
+            $this->session->set_flashdata('success', 'Berhasil menambah data');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+
+            $this->session->set_flashdata('error', 'Gagal menambah data');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function editDataSemesterAksi($id)
+    {
+        $data = array(
+            'id_magang_thn_akademik'    => $this->input->post('id_magang_thn_akademik'),
+            'nama_semester'             => $this->input->post('nama_semester'),
+            'keterangan'                => $this->input->post('keterangan'),
+        );
+
+        if (!$this->mUserAdmin->updateData('magang_semester', $data, array('id_magang_semester' => $id))) {
+
+            $this->session->set_flashdata('success', 'Berhasil memperbarui data');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+
+            $this->session->set_flashdata('error', 'Gagal memperbarui data');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function nonaktifDataSemesterAksi($id)
+    {
+        $data = array(
+            'aktif'      => 0,
+        );
+
+        if (!$this->mUserAdmin->updateData('magang_semester', $data, array('id_magang_semester' => $id))) {
+
+            $this->session->set_flashdata('success', 'Berhasil nonaktifkan data');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+
+            $this->session->set_flashdata('error', 'Gagal nonaktifkan data');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function aktifDataSemesterAksi($id)
+    {
+        $data = array(
+            'aktif'      => 1,
+        );
+
+        if (!$this->mUserAdmin->updateData('magang_semester', $data, array('id_magang_semester' => $id))) {
+
+            $this->session->set_flashdata('success', 'Berhasil aktifkan data');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+
+
+            $this->session->set_flashdata('error', 'Gagal aktifkan data');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    // Data Jadwal
     public function dataJadwal()
     {
         $lang = $this->mUserAdmin->switchLang($this->session->userdata('nilai_bahasa'))->result();
@@ -104,68 +209,6 @@ class UserAdmin extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function dataAbsensi()
-    {
-        $lang = $this->mUserAdmin->switchLang($this->session->userdata('nilai_bahasa'))->result();
-
-        foreach ($lang as $d) {
-            $data['lan_' . $d->id_multi_bahasa] = $d->translate;
-        }
-
-        $data['title']      = getDateIndo();
-        $data['subtitle']   = "Dashboard";
-
-        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi()->result();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('nilai/admin/vDataAbsensi', $data);
-        $this->load->view('templates/footer', $data);
-    }
-
-    // Upload excel absen
-    public function uploadAbsen()
-    {
-        $upload_file    = $_FILES['upload_file']['name'];
-        $extension      = pathinfo($upload_file, PATHINFO_EXTENSION);
-
-        if ($extension == 'csv') {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-        } else if ($extension == 'xls') {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-        } else {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        }
-
-        $spreadsheet    = $reader->load($_FILES['upload_file']['tmp_name']);
-        $sheetdata      = $spreadsheet->getActiveSheet()->toArray();
-        $sheetcount     = count($sheetdata);
-
-        if ($sheetcount > 1) {
-            $data   = array();
-
-            for ($i = 1; $i < $sheetcount; $i++) {
-                $id_mahasiswa           = $sheetdata[$i][0];
-                $id_matakuliah          = $sheetdata[$i][1];
-                $id_penilaian_semester  = $this->input->post('id_penilaian_semester');
-
-                $data[] = array(
-                    'id_penilaian_mahasiswa'    => $id_mahasiswa,
-                    'id_penilaian_semester'     => $id_penilaian_semester,
-                    'id_penilaian_matakuliah'   => $id_matakuliah,
-                );
-            }
-
-            if ($this->mUserAdmin->insert_batch('penilaian_absensi', $data)) {
-                $this->session->set_flashdata('success', 'Berhasil upload data');
-                redirect($_SERVER['HTTP_REFERER']);
-            } else {
-                $this->session->set_flashdata('error', 'Gagal upload data');
-                redirect($_SERVER['HTTP_REFERER']);
-            }
-        }
-    }
-
-    // Upload excel jadwal
     public function uploadJadwal()
     {
         $upload_file    = $_FILES['upload_file']['name'];
@@ -210,7 +253,68 @@ class UserAdmin extends CI_Controller
         }
     }
 
-    // Upload excel matakuliah
+    // Data Absensi
+    public function dataAbsensi()
+    {
+        $lang = $this->mUserAdmin->switchLang($this->session->userdata('nilai_bahasa'))->result();
+
+        foreach ($lang as $d) {
+            $data['lan_' . $d->id_multi_bahasa] = $d->translate;
+        }
+
+        $data['title']      = getDateIndo();
+        $data['subtitle']   = "Dashboard";
+
+        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('nilai/admin/vDataAbsensi', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function uploadAbsen()
+    {
+        $upload_file    = $_FILES['upload_file']['name'];
+        $extension      = pathinfo($upload_file, PATHINFO_EXTENSION);
+
+        if ($extension == 'csv') {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        } else if ($extension == 'xls') {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+
+        $spreadsheet    = $reader->load($_FILES['upload_file']['tmp_name']);
+        $sheetdata      = $spreadsheet->getActiveSheet()->toArray();
+        $sheetcount     = count($sheetdata);
+
+        if ($sheetcount > 1) {
+            $data   = array();
+
+            for ($i = 1; $i < $sheetcount; $i++) {
+                $id_mahasiswa           = $sheetdata[$i][0];
+                $id_matakuliah          = $sheetdata[$i][1];
+                $id_penilaian_semester  = $this->input->post('id_penilaian_semester');
+
+                $data[] = array(
+                    'id_penilaian_mahasiswa'    => $id_mahasiswa,
+                    'id_penilaian_semester'     => $id_penilaian_semester,
+                    'id_penilaian_matakuliah'   => $id_matakuliah,
+                );
+            }
+
+            if ($this->mUserAdmin->insert_batch('penilaian_absensi', $data)) {
+                $this->session->set_flashdata('success', 'Berhasil upload data');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $this->session->set_flashdata('error', 'Gagal upload data');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+        }
+    }
+
+    // Data matakuliah
     public function uploadMatakuliah()
     {
         $upload_file    = $_FILES['upload_file']['name'];
@@ -253,7 +357,7 @@ class UserAdmin extends CI_Controller
         }
     }
 
-    // Upload excel dosen
+    // Data Dosen
     public function uploadDosen()
     {
         $upload_file    = $_FILES['upload_file']['name'];
@@ -294,7 +398,7 @@ class UserAdmin extends CI_Controller
         }
     }
 
-    // Upload excel mahasiswa
+    // Data mahasiswa
     public function uploadMahasiswa()
     {
         $upload_file    = $_FILES['upload_file']['name'];
@@ -335,7 +439,9 @@ class UserAdmin extends CI_Controller
         }
     }
 
-    // download template jadwal
+    // ----------------------------------------------------------------- Template ----------------------------------------------------------------- //
+
+    // Template jadwal
     public function templateDataJadwal()
     {
         header('Content-Type: application/vnd.ms-excel');
@@ -350,7 +456,7 @@ class UserAdmin extends CI_Controller
         $writer->save("php://output");
     }
 
-    // download template absensi
+    // Template absensi
     public function templateDataAbsen()
     {
         header('Content-Type: application/vnd.ms-excel');
@@ -364,7 +470,7 @@ class UserAdmin extends CI_Controller
         $writer->save("php://output");
     }
 
-    // download template dosen
+    // Template dosen
     public function templateDataDosen()
     {
         header('Content-Type: application/vnd.ms-excel');
@@ -378,7 +484,7 @@ class UserAdmin extends CI_Controller
         $writer->save("php://output");
     }
 
-    // download template mahasiswa
+    // Template mahasiswa
     public function templateDataMahasiswa()
     {
         header('Content-Type: application/vnd.ms-excel');
@@ -392,7 +498,7 @@ class UserAdmin extends CI_Controller
         $writer->save("php://output");
     }
 
-    // download template mahasiswa
+    // Template matakuliah
     public function templateDataMatkul()
     {
         header('Content-Type: application/vnd.ms-excel');
@@ -404,120 +510,5 @@ class UserAdmin extends CI_Controller
 
         $writer = new Xlsx($spreadsheet);
         $writer->save("php://output");
-    }
-
-    // Export ke excel
-    public function exportExcelDataMagang($jenis)
-    {
-        $result   = $this->mUserAdmin->periodeMagang()->row();
-        $thn_akad = $result->thn_akademik;
-
-        // Create new Spreadsheet object
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->createSheet();
-        $spreadsheet->createSheet();
-
-        // Set document properties
-        $spreadsheet->getProperties()->setCreator('Ardi Tri Heru - TeknoBit')
-            ->setLastModifiedBy('Ardi Tri Heru - TeknoBit')
-            ->setTitle('Office 2007 XLSX Test Document')
-            ->setSubject('Office 2007 XLSX Test Document')
-            ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-            ->setKeywords('office 2007 openxml php')
-            ->setCategory('Test result file');
-
-        // Data worksheet mahasiswa
-        $spreadsheet->setActiveSheetIndex(0)
-            ->setTitle('Data Mahasiswa')
-            ->setCellValue('A1', 'NO')
-            ->setCellValue('B1', 'KODE DAFTAR')
-            ->setCellValue('C1', 'NIM MAHASISWA')
-            ->setCellValue('D1', 'NAMA MAHASISWA')
-            ->setCellValue('E1', 'JENIS')
-            ->setCellValue('F1', 'ID INSTANSI')
-            ->setCellValue('G1', 'NIK PEMBIMBING');
-
-        if ($jenis == 1) {
-            $query = $this->mUserAdmin->detailMagang('magang_daftar.id_magang_daftar IS NOT NULL', '1')->result();
-        } else {
-            $query = $this->mUserAdmin->detailMagang('magang_daftar.id_magang_daftar IS NOT NULL', '2')->result();
-        }
-
-        $noa = 1;
-        $ia  = 2;
-        foreach ($query as $d) {
-
-            $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue('A' . $ia, $noa++)
-                ->setCellValue('B' . $ia, $d->id_magang_daftar)
-                ->setCellValue('C' . $ia, $d->id_mahasiswa)
-                ->setCellValue('D' . $ia, $d->nama_mahasiswa)
-                ->setCellValue('E' . $ia, $d->nama_magang_jenis)
-                ->setCellValue('F' . $ia, $d->id_magang_instansi)
-                ->setCellValue('G' . $ia, $d->id_pembimbing);
-            $ia++;
-        }
-
-        // Data worksheet dosen
-        $spreadsheet->setActiveSheetIndex(1)
-            ->setTitle('Data Dosen')
-            ->setCellValue('A1', 'NO')
-            ->setCellValue('B1', 'NIK DOSEN')
-            ->setCellValue('C1', 'NAMA DOSEN');
-
-        $dosen = $this->mUserAdmin->selectData('dosen', 'id_dosen, nama_dosen', 'id_dosen !=0', 'nama_dosen ASC')->result();
-
-        $nob = 1;
-        $ib  = 2;
-        foreach ($dosen as $d) {
-
-            $spreadsheet->setActiveSheetIndex(1)
-                ->setCellValue('A' . $ib, $nob++)
-                ->setCellValue('B' . $ib, $d->id_dosen)
-                ->setCellValue('C' . $ib, $d->nama_dosen);
-            $ib++;
-        }
-
-        // Data worksheet instansi
-        $spreadsheet->setActiveSheetIndex(2)
-            ->setTitle('Data Instansi')
-            ->setCellValue('A1', 'NO')
-            ->setCellValue('B1', 'ID INSTANSI')
-            ->setCellValue('C1', 'NAMA INSTANSI')
-            ->setCellValue('D1', 'ALAMAT');
-
-        $instansi = $this->mUserAdmin->selectData('magang_instansi', '*', 'id_magang_instansi IS NOT NULL', 'nama_instansi ASC')->result();
-
-        $noc = 1;
-        $ic  = 2;
-        foreach ($instansi as $d) {
-
-            $spreadsheet->setActiveSheetIndex(2)
-                ->setCellValue('A' . $ic, $noc++)
-                ->setCellValue('B' . $ic, $d->id_magang_instansi)
-                ->setCellValue('C' . $ic, $d->nama_instansi)
-                ->setCellValue('D' . $ic, $d->alamat_instansi);
-            $ic++;
-        }
-
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(0);
-
-        // Redirect output to a client’s web browser (Xlsx)
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Data pemagangan periode"' . $thn_akad . '".xlsx"');
-        header('Cache-Control: max-age=0');
-        // If you're serving to IE 9, then the following may be needed
-        header('Cache-Control: max-age=1');
-
-        // If you're serving to IE over SSL, then the following may be needed
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        header('Pragma: public'); // HTTP/1.0
-
-        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        $writer->save('php://output');
-        exit;
     }
 }
