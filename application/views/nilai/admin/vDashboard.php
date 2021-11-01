@@ -95,23 +95,34 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <!-- <div class="col-lg-4">
-                                            <div class="input-group input-group-lg mb-3">
-                                                <div class="input-group-prepend">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                        Sort by Dosen
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li class="dropdown-item"><a href="#">Semua Data</a></li>
-                                                        <li class="dropdown-item"><a href="#">Another action</a></li>
-                                                        <li class="dropdown-item"><a href="#">Something else here</a></li>
-                                                    </ul>
-                                                </div>
-                                                <!-- /btn-group -->
-                                        <!-- <label for="" class="form-control">ss</label> -->
-                                        <!-- </div> -->
+                                        <div class="input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Tahun Akademik
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <?php foreach ($dataThnAkad as $d) : ?>
+                                                        <li class="dropdown-item"><a href="<?php echo $d->id_penilaian_thn_akademik; ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                            <!-- /btn-group -->
+                                            &nbsp;
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Matakuliah
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-item"><a href="#">Action</a></li>
+                                                    <li class="dropdown-item"><a href="#">Another action</a></li>
+                                                    <li class="dropdown-item"><a href="#">Something else here</a></li>
+                                                    <li class="dropdown-divider"></li>
+                                                    <li class="dropdown-item"><a href="#">Separated link</a></li>
+                                                </ul>
+                                            </div>
+                                            <!-- /btn-group -->
+                                        </div>
                                         <!-- /input-group -->
-                                        <!-- </div> -->
                                         <table id="dataTablesAsc1" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>

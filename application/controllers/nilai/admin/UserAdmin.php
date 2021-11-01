@@ -46,6 +46,7 @@ class UserAdmin extends CI_Controller
         $data['countMhs'] = $this->mUserAdmin->dataIndex('penilaian_absensi.id_penilaian_mahasiswa', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
         $data['countDsn'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
         $data['countMkl'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
 
         if ($sort == 2) {
             $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_mahasiswa.nama_mahasiswa ASC')->result();
