@@ -130,9 +130,9 @@
                 <li class="nav-header">MASTER DATA</li>
 
                 <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>nilai/admin/userAdmin/index?menuUtama=active" class="nav-link <?php echo $this->input->get('menuUtama'); ?>">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p><?php echo $lan_menu_utama; ?></p>
+                    <a href="<?php echo base_url(); ?>nilai/admin/userAdmin/dataSemester?menuSemester=active" class="nav-link <?php echo $this->input->get('menuSemester'); ?>">
+                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <p>Semester</p>
                     </a>
                 </li>
 
