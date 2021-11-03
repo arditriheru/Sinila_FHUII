@@ -169,7 +169,7 @@ class mUserAdmin extends CI_Model
 
     function dataAbsensi($where)
     {
-        $query = $this->db->select('penilaian_matakuliah.matakuliah, penilaian_mahasiswa.*')
+        $query = $this->db->select('*')
             ->from('penilaian_absensi')
             ->join('penilaian_mahasiswa', 'penilaian_absensi.id_penilaian_mahasiswa = penilaian_mahasiswa.id_penilaian_mahasiswa')
             ->join('penilaian_matakuliah', 'penilaian_absensi.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')

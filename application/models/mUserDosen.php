@@ -127,7 +127,7 @@ class mUserDosen extends CI_Model
 
     function dataAbsensi($where)
     {
-        $query = $this->db->select('penilaian_matakuliah.*, penilaian_mahasiswa.*')
+        $query = $this->db->select('*')
             ->from('penilaian_jadwal')
             ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')
             ->join('penilaian_absensi', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_absensi.id_penilaian_matakuliah', 'left')

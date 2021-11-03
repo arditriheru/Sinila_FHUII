@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
 
                                         <?php if ($this->input->get('semester')) { ?>
 
@@ -70,16 +70,22 @@
 
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
 
                                         <?php if ($this->input->get('matakuliah')) { ?>
 
                                             <table id="dataTablesAsc2" class="table table-bordered table-hover mt-5">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th class="text-center">Mahasiswa</th>
-                                                        <th class="text-center">Matakuliah</th>
+                                                        <th class="text-center" rowspan="2">#</th>
+                                                        <th class="text-center" rowspan="2">Nama Mahasiswa</th>
+                                                        <th class="text-center" rowspan="2">Matakuliah</th>
+                                                        <th class="text-center" colspan="3">Nilai</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="text-center">UTS</th>
+                                                        <th class="text-center">UAS</th>
+                                                        <th class="text-center">Tugas</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -89,6 +95,9 @@
                                                             <td class="text-center"><?php echo $no++; ?></td>
                                                             <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
                                                             <td class="text-center"><?php echo $d->matakuliah; ?></td>
+                                                            <td class="text-center"><input type="number" style="width: 70px;" value="<?= $d->uts; ?>"></td>
+                                                            <td class="text-center"><input type="number" style="width: 70px;" value="<?= $d->uas; ?>"></td>
+                                                            <td class="text-center"><?= $d->tugas; ?></td>
                                                         </tr>
 
                                                     <?php endforeach; ?>
