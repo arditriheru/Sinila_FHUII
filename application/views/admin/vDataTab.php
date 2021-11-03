@@ -29,97 +29,50 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"><strong>Tahun Akademik : 2021/2022</strong></h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <!-- Small boxes (Stat box) -->
-                                <div class="row">
-                                    <div class="col-lg-4 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-info">
-                                            <div class="inner">
-                                                <h3><?= $countMhs; ?></h3>
-
-                                                <p>Total Mahasiswa</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fas fa-check"></i>
-                                            </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                    <div class="col-lg-4 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-success">
-                                            <div class="inner">
-                                                <h3><?= $countDsn; ?></h3>
-
-                                                <p>Total Dosen</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=2') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                    <div class="col-lg-4 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-warning">
-                                            <div class="inner">
-                                                <h3><?= $countMkl; ?></h3>
-
-                                                <p>Total Matakuliah</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fas fa-book"></i>
-                                            </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                </div>
-                                <!-- /.row -->
-
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Data Mahasiswa</strong></h3>
+                                <h3 class="card-title">Tahun Akademik : <strong><?= $this->input->get('thn_akademik'); ?></strong></h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
+                                        <div class="input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Pilih Semester
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?thn_akademik=' . $this->input->get('thn_akademik') . '&semester=1'); ?>">Semester Ganjil</a></li>
+                                                    <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?thn_akademik=' . $this->input->get('thn_akademik') . '&semester=2'); ?>">Semester Genap</a></li>
+                                                </ul>
+                                            </div>
+                                            <!-- /btn-group -->
+                                        </div>
+                                        <!-- /input-group -->
 
-                                        <?php
-                                        if ($this->input->get('sort') == 2) { ?>
+                                        <?php if ($this->input->get('semester')) { ?>
 
                                             <table id="dataTablesAsc1" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">#</th>
-                                                        <th class="text-center">Nama Dosen</th>
+                                                        <th class="text-center">Matakuliah</th>
+                                                        <th class="text-center">SKS</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php $no = 1;
-                                                    foreach ($dataTab as $d) : ?>
+                                                    foreach ($dataMatkul as $d) : ?>
                                                         <tr>
                                                             <td class="text-center"><?php echo $no++; ?></td>
-                                                            <td class="text-left"><?php echo $d->id_penilaian_dosen . '@uii.ac.id<br><strong>' . $d->nama_dosen . '</strong>'; ?></td>
+                                                            <td class="text-left"><?php echo '<a href=""><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                            <td class="text-center"><?php echo $d->sks; ?></td>
                                                         </tr>
 
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
 
-                                        <?php }
-                                        ?>
+                                        <?php } ?>
 
                                     </div>
                                 </div>

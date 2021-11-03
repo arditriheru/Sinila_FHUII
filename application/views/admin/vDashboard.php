@@ -102,22 +102,8 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <?php foreach ($dataThnAkad as $d) : ?>
-                                                        <li class="dropdown-item"><a href="<?= base_url('userAdmin/dataTab/' . $d->id_penilaian_thn_akademik); ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
+                                                        <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?thn_akademik=' . $d->thn_akademik); ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
                                                     <?php endforeach; ?>
-                                                </ul>
-                                            </div>
-                                            <!-- /btn-group -->
-                                            &nbsp;
-                                            <div class="input-group-prepend">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                    Matakuliah
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li class="dropdown-item"><a href="#">Action</a></li>
-                                                    <li class="dropdown-item"><a href="#">Another action</a></li>
-                                                    <li class="dropdown-item"><a href="#">Something else here</a></li>
-                                                    <li class="dropdown-divider"></li>
-                                                    <li class="dropdown-item"><a href="#">Separated link</a></li>
                                                 </ul>
                                             </div>
                                             <!-- /btn-group -->

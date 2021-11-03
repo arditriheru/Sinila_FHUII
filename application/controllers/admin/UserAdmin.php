@@ -79,15 +79,12 @@ class UserAdmin extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
-        $sort = $this->input->get('sort');
-
-        $data['countMhs'] = $this->mUserAdmin->dataIndex('penilaian_absensi.id_penilaian_mahasiswa', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countDsn'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countMkl'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-
-        if ($sort == 2) {
-            $data['dataTab'] = $this->mUserAdmin->dataDosen()->result();
-        }
+        $data['dataMatkul'] = $this->mUserAdmin->dataMatkul(
+            array(
+                'penilaian_semester.id_penilaian_semester'  => $this->input->get('semester'),
+                'penilaian_thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
+            )
+        )->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/vDataTab', $data);
