@@ -36,8 +36,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h5><a href="<?= base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=1'); ?>">- Semester Ganjil</a></h5>
-                                        <h5><a href="<?= base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=2'); ?>">- Semester Genap</a></h5>
+                                        <h5><i class="nav-icon fas fa-angle-right"></i><a href="<?= base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=1'); ?>"> Semester Ganjil</a></h5>
+                                        <h5><i class="nav-icon fas fa-angle-right"></i><a href="<?= base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=2'); ?>"> Semester Genap</a></h5>
                                     </div>
                                 </div>
                                 <div class="row">
