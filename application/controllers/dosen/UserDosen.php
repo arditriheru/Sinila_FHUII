@@ -41,8 +41,13 @@ class UserDosen extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
-        $result                     = $this->mUserDosen->periodeAktif()->row();
-        $data['dataPeriodeAktif']   = $result->thn_akademik . ' - ' . $result->nm_semester;
+
+        if ($this->mUserAdmin->periodeAktif()->num_rows() > 0) {
+            $result                     = $this->mUserAdmin->periodeAktif()->row();
+            $data['dataPeriodeAktif']   = $result->thn_akademik . ' - ' . $result->nm_semester;
+        } else {
+            $data['dataPeriodeAktif']   = 'Kosong';
+        }
 
         $id_dosen = $this->session->userdata('nilai_id_dosen');
 
