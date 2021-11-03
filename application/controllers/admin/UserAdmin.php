@@ -77,7 +77,7 @@ class UserAdmin extends CI_Controller
         }
 
         $data['title']      = getDateIndo();
-        $data['subtitle']   = "Dashboard";
+        $data['subtitle']   = "Data Filter";
 
         $data['dataMatkul'] = $this->mUserAdmin->dataMatkul(
             array(
@@ -85,6 +85,16 @@ class UserAdmin extends CI_Controller
                 'penilaian_thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
             )
         )->result();
+
+        $matakuliah = $this->input->get('matakuliah');
+
+        if (isset($matakuliah)) {
+            $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi(
+                array(
+                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah
+                )
+            )->result();
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/vDataTab', $data);
@@ -274,7 +284,7 @@ class UserAdmin extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
-        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi()->result();
+        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi('penilaian_absensi.id_penilaian_absensi IS NOT NULL')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/vDataAbsensi', $data);

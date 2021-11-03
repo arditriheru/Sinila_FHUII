@@ -102,7 +102,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <?php foreach ($dataThnAkad as $d) : ?>
-                                                        <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?thn_akademik=' . $d->thn_akademik); ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
+                                                        <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $d->thn_akademik); ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
                                                     <?php endforeach; ?>
                                                 </ul>
                                             </div>

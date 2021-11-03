@@ -13,6 +13,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                             <li class="breadcrumb-item active"><?php echo $subtitle; ?></li>
                         </ol>
                     </div>
@@ -34,24 +35,17 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5><a href="<?= base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=1'); ?>">- Semester Ganjil</a></h5>
+                                        <h5><a href="<?= base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=2'); ?>">- Semester Genap</a></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-6">
-                                        <div class="input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                    Pilih Semester
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?thn_akademik=' . $this->input->get('thn_akademik') . '&semester=1'); ?>">Semester Ganjil</a></li>
-                                                    <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?thn_akademik=' . $this->input->get('thn_akademik') . '&semester=2'); ?>">Semester Genap</a></li>
-                                                </ul>
-                                            </div>
-                                            <!-- /btn-group -->
-                                        </div>
-                                        <!-- /input-group -->
 
                                         <?php if ($this->input->get('semester')) { ?>
 
-                                            <table id="dataTablesAsc1" class="table table-bordered table-hover">
+                                            <table id="dataTablesAsc1" class="table table-bordered table-hover mt-5">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">#</th>
@@ -64,8 +58,37 @@
                                                     foreach ($dataMatkul as $d) : ?>
                                                         <tr>
                                                             <td class="text-center"><?php echo $no++; ?></td>
-                                                            <td class="text-left"><?php echo '<a href=""><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                            <td class="text-left"><?php echo '<a href="' . base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=' . $this->input->get('semester') . '&matakuliah=' . $d->id_penilaian_matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
                                                             <td class="text-center"><?php echo $d->sks; ?></td>
+                                                        </tr>
+
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+
+                                        <?php } ?>
+
+                                    </div>
+
+                                    <div class="col-lg-6">
+
+                                        <?php if ($this->input->get('matakuliah')) { ?>
+
+                                            <table id="dataTablesAsc2" class="table table-bordered table-hover mt-5">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">Mahasiswa</th>
+                                                        <th class="text-center">Matakuliah</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $no = 1;
+                                                    foreach ($dataAbsensi as $d) : ?>
+                                                        <tr>
+                                                            <td class="text-center"><?php echo $no++; ?></td>
+                                                            <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
+                                                            <td class="text-center"><?php echo $d->matakuliah; ?></td>
                                                         </tr>
 
                                                     <?php endforeach; ?>
