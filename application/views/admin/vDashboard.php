@@ -29,7 +29,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Tahun Akademik : <strong><?= $dataPeriodeAktif; ?></strong></h3>
+                                <h3 class="card-title">Tahun Akademik : <strong><?= $dataPeriodeAktif->thn_akademik . ' - ' . $dataPeriodeAktif->nm_semester; ?></strong></h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -46,7 +46,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-check"></i>
                                             </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester) ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -61,7 +61,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-user"></i>
                                             </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&sort=2') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester) ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -76,7 +76,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-book"></i>
                                             </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester) ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->

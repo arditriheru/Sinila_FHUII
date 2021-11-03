@@ -43,8 +43,7 @@ class UserDosen extends CI_Controller
 
 
         if ($this->mUserDosen->periodeAktif()->num_rows() > 0) {
-            $result                     = $this->mUserDosen->periodeAktif()->row();
-            $data['dataPeriodeAktif']   = $result->thn_akademik . ' - ' . $result->nm_semester;
+            $data['dataPeriodeAktif']   = $this->mUserDosen->periodeAktif()->row();
         } else {
             $data['dataPeriodeAktif']   = 'Kosong';
         }

@@ -42,8 +42,7 @@ class UserAdmin extends CI_Controller
         $data['subtitle']   = "Dashboard";
 
         if ($this->mUserAdmin->periodeAktif()->num_rows() > 0) {
-            $result                     = $this->mUserAdmin->periodeAktif()->row();
-            $data['dataPeriodeAktif']   = $result->thn_akademik . ' - ' . $result->nm_semester;
+            $data['dataPeriodeAktif']   = $this->mUserAdmin->periodeAktif()->row();
         } else {
             $data['dataPeriodeAktif']   = 'Kosong';
         }
