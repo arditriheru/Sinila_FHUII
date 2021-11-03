@@ -99,7 +99,7 @@ class mUserAdmin extends CI_Model
 
     function dataIndex($groupby, $orderby)
     {
-        $query = $this->db->select('penilaian_dosen.*, penilaian_matakuliah.*, penilaian_mahasiswa.*')
+        $query = $this->db->select('*')
             ->from('penilaian_jadwal')
             ->join('penilaian_dosen', 'penilaian_jadwal.id_penilaian_dosen = penilaian_dosen.id_penilaian_dosen')
             ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')

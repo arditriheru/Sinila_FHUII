@@ -112,22 +112,27 @@
                                         <table id="dataTablesAsc1" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th class="text-center">Nama Mahasiswa</th>
-                                                    <th class="text-center">Nilai UTS</th>
-                                                    <th class="text-center">Nilai UAS</th>
-                                                    <th class="text-center">Nilai Tugas</th>
+                                                    <th class="text-center" rowspan="2">#</th>
+                                                    <th class="text-center" rowspan="2">Nama Mahasiswa</th>
+                                                    <th class="text-center" rowspan="2">Matakuliah</th>
+                                                    <th class="text-center" colspan="3">Nilai</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center">UTS</th>
+                                                    <th class="text-center">UAS</th>
+                                                    <th class="text-center">Tugas</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1;
                                                 foreach ($dataIndex as $d) : ?>
                                                     <tr>
-                                                        <td class="text-center"><?php echo $no++; ?></td>
-                                                        <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                        <td class="text-center">Total</td>
-                                                        <td class="text-center">Total</td>
-                                                        <td class="text-center">Total</td>
+                                                        <td class="text-center"><?= $no++; ?></td>
+                                                        <td class="text-left"><?= $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
+                                                        <td class="text-left"><?= 'Kelas ' . $d->kelas . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
+                                                        <td class="text-center"><?= $d->uts; ?></td>
+                                                        <td class="text-center"><?= $d->uas; ?></td>
+                                                        <td class="text-center"><?= $d->tugas; ?></td>
                                                     </tr>
 
                                                 <?php endforeach; ?>

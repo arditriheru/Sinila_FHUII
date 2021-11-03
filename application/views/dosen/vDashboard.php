@@ -79,7 +79,7 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -94,13 +94,26 @@
                                             <!-- /btn-group -->
                                         </div>
                                         <!-- /input-group -->
+                                    </div>
+                                    <!-- col-lg-6 -->
+                                    <div class="col-lg-6">
+                                        <button class="btn btn-success float-sm-right">Entry Nilai</button>
+                                    </div>
+                                    <!-- col-lg-6 -->
+                                    <div class="col-lg-12">
+
                                         <table id="dataTablesAsc1" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th class="text-center">Nama Mahasiswa</th>
-                                                    <th class="text-center">Matakuliah</th>
-                                                    <th class="text-center">Kelas</th>
+                                                    <th class="text-center" rowspan="2">#</th>
+                                                    <th class="text-center" rowspan="2">Nama Mahasiswa</th>
+                                                    <th class="text-center" rowspan="2">Matakuliah</th>
+                                                    <th class="text-center" colspan="3">Nilai</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center">UTS</th>
+                                                    <th class="text-center">UAS</th>
+                                                    <th class="text-center">Tugas</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -109,8 +122,10 @@
                                                     <tr>
                                                         <td class="text-center"><?= $no++; ?></td>
                                                         <td class="text-left"><?= $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                        <td class="text-center"><?= $d->matakuliah; ?></td>
-                                                        <td class="text-center"><?= $d->kelas; ?></td>
+                                                        <td class="text-left"><?= 'Kelas ' . $d->kelas . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
+                                                        <td class="text-center"><input type="number" style="width: 70px;" value="<?= $d->uts; ?>"></td>
+                                                        <td class="text-center"><input type="number" style="width: 70px;" value="<?= $d->uas; ?>"></td>
+                                                        <td class="text-center"><?= $d->tugas; ?></td>
                                                     </tr>
 
                                                 <?php endforeach; ?>
