@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <?php $this->view('admin/vMenu'); ?>
+    <?php $this->view('dosen/vMenu'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -36,8 +36,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h5><a href="<?= base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=1'); ?>">- Semester Ganjil</a></h5>
-                                        <h5><a href="<?= base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=2'); ?>">- Semester Genap</a></h5>
+                                        <h5><a href="<?= base_url('dosen/userDosen/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=1'); ?>">- Semester Ganjil</a></h5>
+                                        <h5><a href="<?= base_url('dosen/userDosen/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=2'); ?>">- Semester Genap</a></h5>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -58,7 +58,7 @@
                                                     foreach ($dataMatkul as $d) : ?>
                                                         <tr>
                                                             <td class="text-center"><?php echo $no++; ?></td>
-                                                            <td class="text-left"><?php echo '<a href="' . base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=' . $this->input->get('semester') . '&matakuliah=' . $d->id_penilaian_matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                            <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=' . $this->input->get('semester') . '&matakuliah=' . $d->id_penilaian_matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
                                                             <td class="text-center"><?php echo $d->sks; ?></td>
                                                         </tr>
 

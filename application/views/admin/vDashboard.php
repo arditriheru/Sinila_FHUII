@@ -46,7 +46,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-check"></i>
                                             </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -61,7 +61,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-user"></i>
                                             </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=2') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&sort=2') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -76,7 +76,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-book"></i>
                                             </div>
-                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataFilter?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -102,7 +102,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <?php foreach ($dataThnAkad as $d) : ?>
-                                                        <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataTab?menuUtama=active&thn_akademik=' . $d->thn_akademik); ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
+                                                        <li class="dropdown-item"><a href="<?= base_url('admin/userAdmin/dataFilter?menuUtama=active&thn_akademik=' . $d->thn_akademik); ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
                                                     <?php endforeach; ?>
                                                 </ul>
                                             </div>

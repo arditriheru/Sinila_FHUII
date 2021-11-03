@@ -80,6 +80,20 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
+                                        <div class="input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Tahun Akademik
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <?php foreach ($dataThnAkad as $d) : ?>
+                                                        <li class="dropdown-item"><a href="<?= base_url('dosen/userDosen/dataFilter?menuUtama=active&thn_akademik=' . $d->thn_akademik); ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                            <!-- /btn-group -->
+                                        </div>
+                                        <!-- /input-group -->
                                         <table id="dataTablesAsc1" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>

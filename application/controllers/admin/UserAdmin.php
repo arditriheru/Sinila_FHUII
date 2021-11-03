@@ -68,7 +68,7 @@ class UserAdmin extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function dataTab()
+    public function dataFilter()
     {
         $lang = $this->mUserAdmin->switchLang($this->session->userdata('nilai_bahasa'))->result();
 
@@ -97,7 +97,7 @@ class UserAdmin extends CI_Controller
         }
 
         $this->load->view('templates/header', $data);
-        $this->load->view('admin/vDataTab', $data);
+        $this->load->view('admin/vDataFilter', $data);
         $this->load->view('templates/footer', $data);
     }
 

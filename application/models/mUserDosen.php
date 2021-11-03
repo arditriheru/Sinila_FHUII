@@ -112,4 +112,33 @@ class mUserDosen extends CI_Model
             ->get();
         return $query;
     }
+
+    function dataMatkul($where)
+    {
+        $query = $this->db->select('penilaian_matakuliah.*')
+            ->from('penilaian_jadwal')
+            ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')
+            ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
+            ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
+            ->where($where)
+            ->group_by('penilaian_jadwal.id_penilaian_matakuliah')
+            ->get();
+        return $query;
+    }
+
+    function dataAbsensi($where)
+    {
+        $query = $this->db->select('penilaian_matakuliah.*, penilaian_mahasiswa.*')
+            ->from('penilaian_jadwal')
+            ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')
+            ->join('penilaian_absensi', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_absensi.id_penilaian_matakuliah', 'left')
+            ->join('penilaian_mahasiswa', 'penilaian_absensi.id_penilaian_mahasiswa = penilaian_mahasiswa.id_penilaian_mahasiswa')
+            ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
+            ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
+            ->where($where)
+            ->group_by('penilaian_absensi.id_penilaian_mahasiswa')
+            ->order_by('penilaian_mahasiswa.nama_mahasiswa')
+            ->get();
+        return $query;
+    }
 }

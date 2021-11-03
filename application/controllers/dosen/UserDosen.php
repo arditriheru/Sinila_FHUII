@@ -42,8 +42,8 @@ class UserDosen extends CI_Controller
         $data['subtitle']   = "Dashboard";
 
 
-        if ($this->mUserAdmin->periodeAktif()->num_rows() > 0) {
-            $result                     = $this->mUserAdmin->periodeAktif()->row();
+        if ($this->mUserDosen->periodeAktif()->num_rows() > 0) {
+            $result                     = $this->mUserDosen->periodeAktif()->row();
             $data['dataPeriodeAktif']   = $result->thn_akademik . ' - ' . $result->nm_semester;
         } else {
             $data['dataPeriodeAktif']   = 'Kosong';
@@ -78,8 +78,46 @@ class UserDosen extends CI_Controller
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->result();
 
+        $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
+
         $this->load->view('templates/header', $data);
         $this->load->view('dosen/vDashboard', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function dataFilter()
+    {
+        $lang = $this->mUserDosen->switchLang($this->session->userdata('nilai_bahasa'))->result();
+
+        foreach ($lang as $d) {
+            $data['lan_' . $d->id_multi_bahasa] = $d->translate;
+        }
+
+        $data['title']      = getDateIndo();
+        $data['subtitle']   = "Data Filter";
+
+        $id_dosen = $this->session->userdata('nilai_id_dosen');
+
+        $data['dataMatkul'] = $this->mUserDosen->dataMatkul(
+            array(
+                'penilaian_semester.id_penilaian_semester'  => $this->input->get('semester'),
+                'penilaian_thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
+                'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
+            )
+        )->result();
+
+        $matakuliah = $this->input->get('matakuliah');
+
+        if (isset($matakuliah)) {
+            $data['dataAbsensi']  = $this->mUserDosen->dataAbsensi(
+                array(
+                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah
+                )
+            )->result();
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('dosen/vDataFilter', $data);
         $this->load->view('templates/footer', $data);
     }
 }
