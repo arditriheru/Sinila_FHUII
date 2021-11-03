@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <?php $this->view('nilai/admin/vMenu'); ?>
+    <?php $this->view('admin/vMenu'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <?php $this->view('nilai/admin/vMenu'); ?>
+    <?php $this->view('dosen/vMenu'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -29,13 +29,13 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"><strong>Tahun Akademik : 2021/2022</strong></h3>
+                                <h3 class="card-title">Tahun Akademik : <strong><?= $dataPeriodeAktif; ?></strong></h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <!-- Small boxes (Stat box) -->
                                 <div class="row">
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-6 col-6">
                                         <!-- small box -->
                                         <div class="small-box bg-info">
                                             <div class="inner">
@@ -46,28 +46,13 @@
                                             <div class="icon">
                                                 <i class="fas fa-check"></i>
                                             </div>
-                                            <a href="<?php echo base_url('nilai/admin/userAdmin/dataTab?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-6 col-6">
                                         <!-- small box -->
                                         <div class="small-box bg-success">
-                                            <div class="inner">
-                                                <h3><?= $countDsn; ?></h3>
-
-                                                <p>Total Dosen</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                            <a href="<?php echo base_url('nilai/admin/userAdmin/dataTab?menuUtama=active&sort=2') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                    <div class="col-lg-4 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-warning">
                                             <div class="inner">
                                                 <h3><?= $countMkl; ?></h3>
 
@@ -76,7 +61,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-book"></i>
                                             </div>
-                                            <a href="<?php echo base_url('nilai/admin/userAdmin/dataTab?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -95,31 +80,28 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-
-                                        <?php
-                                        if ($this->input->get('sort') == 2) { ?>
-
-                                            <table id="dataTablesAsc1" class="table table-bordered table-hover">
-                                                <thead>
+                                        <table id="dataTablesAsc1" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Nama Mahasiswa</th>
+                                                    <th class="text-center">Matakuliah</th>
+                                                    <th class="text-center">Kelas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $no = 1;
+                                                foreach ($dataIndex as $d) : ?>
                                                     <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th class="text-center">Nama Dosen</th>
+                                                        <td class="text-center"><?= $no++; ?></td>
+                                                        <td class="text-left"><?= $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
+                                                        <td class="text-center"><?= $d->matakuliah; ?></td>
+                                                        <td class="text-center"><?= $d->kelas; ?></td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $no = 1;
-                                                    foreach ($dataTab as $d) : ?>
-                                                        <tr>
-                                                            <td class="text-center"><?php echo $no++; ?></td>
-                                                            <td class="text-left"><?php echo $d->id_penilaian_dosen . '@uii.ac.id<br><strong>' . $d->nama_dosen . '</strong>'; ?></td>
-                                                        </tr>
 
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
-
-                                        <?php }
-                                        ?>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
 
                                     </div>
                                 </div>

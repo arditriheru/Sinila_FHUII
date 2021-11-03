@@ -17,7 +17,7 @@ class login extends CI_Controller
         $data['subtitle']       = "Login Sistem Informasi Penilaian";
 
         $this->load->view('templates/header', $data);
-        $this->load->view('nilai/vLogin', $data);
+        $this->load->view('vLogin', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -42,7 +42,7 @@ class login extends CI_Controller
             );
             $this->session->set_userdata($userdata);
             $this->session->set_flashdata('success', 'Hai, Selamat Datang..');
-            redirect('nilai/admin/userAdmin/index?menuUtama=active');
+            redirect('admin/userAdmin/index?menuUtama=active');
         } elseif ($this->mLogin->login('*', 'penilaian_dosen', $where1) !== FALSE) {
 
             $user = $this->mLogin->userDosen($where1)->row();
@@ -58,7 +58,7 @@ class login extends CI_Controller
             );
             $this->session->set_userdata($userdata);
             $this->session->set_flashdata('success', 'Hai, Selamat Datang..');
-            redirect('nilai/dosen/userDosen/index?menuUtama=active');
+            redirect('dosen/userDosen/index?menuUtama=active');
         } else {
 
             $this->session->set_flashdata('error', 'Username atau password salah');
@@ -69,6 +69,6 @@ class login extends CI_Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('nilai/login');
+        redirect('login');
     }
 }

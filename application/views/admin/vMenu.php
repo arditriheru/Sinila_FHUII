@@ -58,7 +58,7 @@
                 <i class="fas fa-chevron-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <ul><a class="nav-link" href="<?php echo base_url(); ?>nilai/login/logout">
+                <ul><a class="nav-link" href="<?php echo base_url(); ?>login/logout">
                         <i class="far fa-circle nav-icon"></i> Logout
                     </a></ul>
             </div>
@@ -70,7 +70,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?php echo base_url(); ?>nilai/admin/userAdmin/index" class="brand-link">
+    <a href="<?php echo base_url(); ?>admin/userAdmin/index" class="brand-link">
         <img src="<?php echo base_url(); ?>assets/dist/img/MainLogo.png" alt="Main Logo" class="brand-image">
         <span class="brand-text font-weight-light">S I N I L A</span>
     </a>
@@ -82,7 +82,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" id="myDIV" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>nilai/admin/userAdmin/index?menuUtama=active" class="nav-link <?php echo $this->input->get('menuUtama'); ?>">
+                    <a href="<?php echo base_url(); ?>admin/userAdmin/index?menuUtama=active" class="nav-link <?php echo $this->input->get('menuUtama'); ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p><?php echo $lan_menu_utama; ?></p>
                     </a>
@@ -94,7 +94,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>nilai/admin/userAdmin/dataJadwal?menuJadwalOpen=menu-open&menuJadwal=active&menuLihatJadwal=active" class="nav-link <?php echo $this->input->get('menuLihatJadwal'); ?>">
+                            <a href="<?php echo base_url(); ?>admin/userAdmin/dataJadwal?menuJadwalOpen=menu-open&menuJadwal=active&menuLihatJadwal=active" class="nav-link <?php echo $this->input->get('menuLihatJadwal'); ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lihat</p>
                             </a>
@@ -114,7 +114,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>nilai/admin/userAdmin/dataAbsensi?menuAbsensiOpen=menu-open&menuAbsensi=active&menuLihatAbsensi=active" class="nav-link <?php echo $this->input->get('menuLihatAbsensi'); ?>">
+                            <a href="<?php echo base_url(); ?>admin/userAdmin/dataAbsensi?menuAbsensiOpen=menu-open&menuAbsensi=active&menuLihatAbsensi=active" class="nav-link <?php echo $this->input->get('menuLihatAbsensi'); ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lihat</p>
                             </a>
@@ -130,7 +130,7 @@
                 <li class="nav-header">MASTER DATA</li>
 
                 <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>nilai/admin/userAdmin/dataSemester?menuSemester=active" class="nav-link <?php echo $this->input->get('menuSemester'); ?>">
+                    <a href="<?php echo base_url(); ?>admin/userAdmin/dataSemester?menuSemester=active" class="nav-link <?php echo $this->input->get('menuSemester'); ?>">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>Semester</p>
                     </a>
@@ -181,7 +181,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/uploadAbsen') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/uploadAbsen') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Upload Excel</h3>
@@ -190,7 +190,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>nilai/admin/userAdmin/templateDataAbsen">Download Template</a>
+                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>admin/userAdmin/templateDataAbsen">Download Template</a>
                                     <div class="form-group">
                                         <label class="required">Semester</label>
                                         <select name="id_penilaian_semester" class="form-control select2" style="width: 100%;" required="">
@@ -240,7 +240,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/uploadJadwal') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/uploadJadwal') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Upload Excel</h3>
@@ -249,7 +249,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-primary mb-2" href="<?php echo base_url('nilai/admin/userAdmin/templateDataJadwal'); ?>">Download Template</a>
+                                    <a class="btn btn-primary mb-2" href="<?php echo base_url('admin/userAdmin/templateDataJadwal'); ?>">Download Template</a>
                                     <div class="form-group">
                                         <label class="required">Semester</label>
                                         <select name="id_penilaian_semester" class="form-control select2" style="width: 100%;" required="">
@@ -299,7 +299,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/uploadAbsen') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/uploadAbsen') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Upload Excel</h3>
@@ -308,7 +308,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>nilai/admin/userAdmin/templateDataAbsen">Download Template</a>
+                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>admin/userAdmin/templateDataAbsen">Download Template</a>
                                     <div class="form-group">
                                         <label class="required">Semester</label>
                                         <select name="id_penilaian_semester" class="form-control select2" style="width: 100%;" required="">
@@ -358,7 +358,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/uploadDosen') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/uploadDosen') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Upload Excel</h3>
@@ -367,7 +367,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>nilai/admin/userAdmin/templateDataDosen">Download Template</a>
+                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>admin/userAdmin/templateDataDosen">Download Template</a>
                                     <div class="form-group">
                                         <label for="dokumen">Dokumen</label>
                                         <div class="custom-file">
@@ -405,7 +405,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/uploadMahasiswa') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/uploadMahasiswa') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Upload Excel</h3>
@@ -414,7 +414,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>nilai/admin/userAdmin/templateDataMahasiswa">Download Template</a>
+                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>admin/userAdmin/templateDataMahasiswa">Download Template</a>
                                     <div class="form-group">
                                         <label for="dokumen">Dokumen</label>
                                         <div class="custom-file">
@@ -452,7 +452,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/uploadMatakuliah') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/uploadMatakuliah') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Upload Excel</h3>
@@ -461,7 +461,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>nilai/admin/userAdmin/templateDataMatkul">Download Template</a>
+                                    <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>admin/userAdmin/templateDataMatkul">Download Template</a>
                                     <div class="form-group">
                                         <label for="dokumen">Dokumen</label>
                                         <div class="custom-file">

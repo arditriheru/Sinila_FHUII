@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <?php $this->view('nilai/admin/vMenu'); ?>
+    <?php $this->view('admin/vMenu'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -59,11 +59,11 @@
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
                                                             <?php if ($d->aktif == 1) { ?>
-                                                                <a href="<?php echo base_url('nilai/admin/userAdmin/nonaktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-success btn-xs mb-3" onclick="javascript: return confirm('Yakin non-aktifkan semester?')">
+                                                                <a href="<?php echo base_url('admin/userAdmin/nonaktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-success btn-xs mb-3" onclick="javascript: return confirm('Yakin non-aktifkan semester?')">
                                                                     <i class="fas fa-check"></i> <?php echo $lan_aktif; ?>
                                                                 </a>
                                                             <?php } else { ?>
-                                                                <a href="<?php echo base_url('nilai/admin/userAdmin/aktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-danger btn-xs mb-3" onclick="javascript: return confirm('Yakin aktifkan semester?')">
+                                                                <a href="<?php echo base_url('admin/userAdmin/aktifDataSemesterAksi/' . $d->id_penilaian_semester); ?>" class="btn btn-danger btn-xs mb-3" onclick="javascript: return confirm('Yakin aktifkan semester?')">
                                                                     <i class="fas fa-times"></i> <?php echo $lan_nonaktif; ?>
                                                                 </a>
                                                             <?php } ?>
@@ -112,7 +112,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/tambahDataSemesterAksi') ?>" method="post" enctype="multipart/form-data">
+                <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/tambahDataSemesterAksi') ?>" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Form Data</h3>
@@ -173,7 +173,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-prevent" action="<?php echo base_url('nilai/admin/userAdmin/editDataSemesterAksi/' . $d->id_penilaian_semester) ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-prevent" action="<?php echo base_url('admin/userAdmin/editDataSemesterAksi/' . $d->id_penilaian_semester) ?>" method="post" enctype="multipart/form-data">
                         <div class="card card-secondary">
                             <div class="card-header">
                                 <h3 class="card-title">Form Data</h3>

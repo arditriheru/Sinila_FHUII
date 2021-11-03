@@ -58,7 +58,7 @@
                 <i class="fas fa-chevron-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <ul><a class="nav-link" href="<?php echo base_url(); ?>nilai/login/logout">
+                <ul><a class="nav-link" href="<?php echo base_url(); ?>login/logout">
                         <i class="far fa-circle nav-icon"></i> Logout
                     </a></ul>
             </div>
@@ -70,7 +70,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?php echo base_url(); ?>nilai/dosen/userDosen/index" class="brand-link">
+    <a href="<?php echo base_url(); ?>dosen/userDosen/index" class="brand-link">
         <img src="<?php echo base_url(); ?>assets/dist/img/MainLogo.png" alt="Main Logo" class="brand-image">
         <span class="brand-text font-weight-light">S I N I L A</span>
     </a>
@@ -82,7 +82,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" id="myDIV" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="<?php echo base_url(); ?>nilai/dosen/userDosen/index?menuUtama=active" class="nav-link <?php echo $this->input->get('menuUtama'); ?>">
+                    <a href="<?php echo base_url(); ?>dosen/userDosen/index?menuUtama=active" class="nav-link <?php echo $this->input->get('menuUtama'); ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p><?php echo $lan_menu_utama; ?></p>
                     </a>
@@ -94,7 +94,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>nilai/dosen/userDosen/dataJadwal?menuJadwalOpen=menu-open&menuJadwal=active&menuLihatJadwal=active" class="nav-link <?php echo $this->input->get('menuLihatJadwal'); ?>">
+                            <a href="<?php echo base_url(); ?>dosen/userDosen/dataJadwal?menuJadwalOpen=menu-open&menuJadwal=active&menuLihatJadwal=active" class="nav-link <?php echo $this->input->get('menuLihatJadwal'); ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lihat</p>
                             </a>

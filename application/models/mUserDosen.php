@@ -75,6 +75,28 @@ class mUserDosen extends CI_Model
         return $query->num_rows();
     }
 
+    function periodeAktif()
+    {
+        $query = $this->db->query("
+        SELECT penilaian_semester.nama_semester, penilaian_thn_akademik.thn_akademik,
+            CASE
+            WHEN penilaian_semester.nama_semester='1' THEN 'Ganjil'
+            WHEN penilaian_semester.nama_semester='2' THEN 'Genap'
+            END nm_semester
+            FROM penilaian_thn_akademik 
+            JOIN penilaian_semester
+            ON penilaian_thn_akademik.id_penilaian_thn_akademik = penilaian_semester.id_penilaian_thn_akademik
+            WHERE penilaian_semester.id_penilaian_semester IN
+            (
+            SELECT MAX(id_penilaian_semester)
+            FROM penilaian_semester
+            WHERE aktif=1
+            )
+            AND penilaian_semester.aktif=1
+        ");
+        return $query;
+    }
+
     function dataIndex($where, $groupby, $orderby)
     {
         $query = $this->db->select('penilaian_jadwal.kelas, penilaian_dosen.*, penilaian_matakuliah.*, penilaian_mahasiswa.*')

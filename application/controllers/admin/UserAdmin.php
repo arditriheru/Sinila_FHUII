@@ -22,10 +22,10 @@ class UserAdmin extends CI_Controller
         		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         		<p>Anda belum login!</p>
         		</div>');
-            redirect('nilai/login');
+            redirect('login');
         }
 
-        $this->load->model("nilai/mUserAdmin");
+        $this->load->model("mUserAdmin");
         $this->load->helper(array('url', 'download'));
         $this->load->library('form_validation', 'excel');
     }
@@ -41,11 +41,19 @@ class UserAdmin extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
+        $result                     = $this->mUserAdmin->periodeAktif()->row();
+        $data['dataPeriodeAktif']   = $result->thn_akademik . ' - ' . $result->nm_semester;
+
+        if ($result == null) {
+            'Null';
+        } else {
+        }
+
         $sort = $this->input->get('short');
 
-        $data['countMhs'] = $this->mUserAdmin->dataIndex('penilaian_absensi.id_penilaian_mahasiswa', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countDsn'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countMkl'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['countMhs']       = $this->mUserAdmin->dataIndex('penilaian_absensi.id_penilaian_mahasiswa', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['countDsn']       = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['countMkl']       = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
         $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
 
         if ($sort == 2) {
@@ -57,7 +65,7 @@ class UserAdmin extends CI_Controller
         }
 
         $this->load->view('templates/header', $data);
-        $this->load->view('nilai/admin/vDashboard', $data);
+        $this->load->view('admin/vDashboard', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -83,7 +91,7 @@ class UserAdmin extends CI_Controller
         }
 
         $this->load->view('templates/header', $data);
-        $this->load->view('nilai/admin/vDataTab', $data);
+        $this->load->view('admin/vDataTab', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -114,7 +122,7 @@ class UserAdmin extends CI_Controller
         $data['count2']         = $this->mUserAdmin->countData('penilaian_thn_akademik', 'id_penilaian_thn_akademik IS NOT NULL');
 
         $this->load->view('templates/header', $data);
-        $this->load->view('nilai/admin/vDataSemester', $data);
+        $this->load->view('admin/vDataSemester', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -177,15 +185,21 @@ class UserAdmin extends CI_Controller
             'aktif'      => 1,
         );
 
-        if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
-
-            $this->session->set_flashdata('success', 'Berhasil aktifkan data');
+        if ($this->mUserAdmin->countData('penilaian_semester', 'aktif=1') > 0) {
+            $this->session->set_flashdata('error', 'Nonaktifkan terlebih dahulu semester yang aktif');
             redirect($_SERVER['HTTP_REFERER']);
         } else {
 
+            if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
 
-            $this->session->set_flashdata('error', 'Gagal aktifkan data');
-            redirect($_SERVER['HTTP_REFERER']);
+                $this->session->set_flashdata('success', 'Berhasil aktifkan data');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+
+
+                $this->session->set_flashdata('error', 'Gagal aktifkan data');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
         }
     }
 
@@ -204,7 +218,7 @@ class UserAdmin extends CI_Controller
         $data['dataJadwal']  = $this->mUserAdmin->dataJadwal()->result();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('nilai/admin/vDataJadwal', $data);
+        $this->load->view('admin/vDataJadwal', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -267,7 +281,7 @@ class UserAdmin extends CI_Controller
         $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi()->result();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('nilai/admin/vDataAbsensi', $data);
+        $this->load->view('admin/vDataAbsensi', $data);
         $this->load->view('templates/footer', $data);
     }
 

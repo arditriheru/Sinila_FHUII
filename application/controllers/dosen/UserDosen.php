@@ -22,10 +22,10 @@ class UserDosen extends CI_Controller
         		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         		<p>Anda belum login!</p>
         		</div>');
-            redirect('nilai/login');
+            redirect('login');
         }
 
-        $this->load->model("nilai/mUserDosen");
+        $this->load->model("mUserDosen");
         $this->load->helper(array('url', 'download'));
         $this->load->library('form_validation', 'excel');
     }
@@ -41,7 +41,9 @@ class UserDosen extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
-        $sort = $this->input->get('short');
+        $result                     = $this->mUserDosen->periodeAktif()->row();
+        $data['dataPeriodeAktif']   = $result->thn_akademik . ' - ' . $result->nm_semester;
+
         $id_dosen = $this->session->userdata('nilai_id_dosen');
 
         $data['countMhs'] = $this->mUserDosen->dataIndex(
@@ -72,7 +74,7 @@ class UserDosen extends CI_Controller
         )->result();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('nilai/dosen/vDashboard', $data);
+        $this->load->view('dosen/vDashboard', $data);
         $this->load->view('templates/footer', $data);
     }
 }

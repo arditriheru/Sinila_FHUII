@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <?php $this->view('nilai/admin/vMenu'); ?>
+    <?php $this->view('admin/vMenu'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -46,17 +46,19 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">#</th>
-                                                    <th class="text-center">Nama Mahasiswa</th>
                                                     <th class="text-center">Matakuliah</th>
+                                                    <th class="text-center">Nama Dosen</th>
+                                                    <th class="text-center">Kelas</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1;
-                                                foreach ($dataAbsensi as $d) : ?>
+                                                foreach ($dataJadwal as $d) : ?>
                                                     <tr>
                                                         <td class="text-center"><?php echo $no++; ?></td>
-                                                        <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                        <td class="text-left"><?= $d->matakuliah ?></td>
+                                                        <td class="text-left"><?= '<strong>' . $d->matakuliah . '</strong>'; ?></td>
+                                                        <td class="text-left"><?= $d->nama_dosen ?></td>
+                                                        <td class="text-center"><?= $d->kelas ?></td>
                                                     </tr>
 
                                                 <?php endforeach; ?>

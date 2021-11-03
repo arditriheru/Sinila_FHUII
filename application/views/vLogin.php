@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>Login V18</title>
+    <title><?php echo $title; ?><br></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/login/images/icons/favicon.ico" />
+    <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/login/images/icons/favicon.jpg" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/login/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/login/vendor/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/login/vendor/css-hamburgers/hamburgers.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/login/vendor/animsition/css/animsition.min.css">
@@ -23,7 +23,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form method="post" class="login100-form validate-form" action="<?php echo base_url('ijazah/Login/login') ?>" role="form">
+                <form method="post" class="login100-form validate-form" action="<?php echo base_url('Login/login') ?>" role="form">
                     <span class="login100-form-title p-b-43">
                         <?php echo $title; ?><br>
                         <p><?php echo $subtitle; ?></p>

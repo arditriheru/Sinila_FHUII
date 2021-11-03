@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <?php $this->view('nilai/admin/vMenu'); ?>
+    <?php $this->view('admin/vMenu'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -46,7 +46,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-check"></i>
                                             </div>
-                                            <a href="<?php echo base_url('nilai/admin/userAdmin/dataTab?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=1') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -61,7 +61,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-user"></i>
                                             </div>
-                                            <a href="<?php echo base_url('nilai/admin/userAdmin/dataTab?menuUtama=active&sort=2') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=2') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -76,7 +76,7 @@
                                             <div class="icon">
                                                 <i class="fas fa-book"></i>
                                             </div>
-                                            <a href="<?php echo base_url('nilai/admin/userAdmin/dataTab?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                                            <a href="<?php echo base_url('admin/userAdmin/dataTab?menuUtama=active&sort=3') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <!-- ./col -->
@@ -95,58 +95,31 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                    Tahun Akademik
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <?php foreach ($dataThnAkad as $d) : ?>
-                                                        <li class="dropdown-item"><a href="<?php echo $d->id_penilaian_thn_akademik; ?>"><?php echo 'Periode ' . $d->thn_akademik; ?></a></li>
-                                                    <?php endforeach; ?>
-                                                </ul>
-                                            </div>
-                                            <!-- /btn-group -->
-                                            &nbsp;
-                                            <div class="input-group-prepend">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                    Matakuliah
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li class="dropdown-item"><a href="#">Action</a></li>
-                                                    <li class="dropdown-item"><a href="#">Another action</a></li>
-                                                    <li class="dropdown-item"><a href="#">Something else here</a></li>
-                                                    <li class="dropdown-divider"></li>
-                                                    <li class="dropdown-item"><a href="#">Separated link</a></li>
-                                                </ul>
-                                            </div>
-                                            <!-- /btn-group -->
-                                        </div>
-                                        <!-- /input-group -->
-                                        <table id="dataTablesAsc1" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th class="text-center">Nama Mahasiswa</th>
-                                                    <th class="text-center">Nilai UTS</th>
-                                                    <th class="text-center">Nilai UAS</th>
-                                                    <th class="text-center">Nilai Tugas</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $no = 1;
-                                                foreach ($dataIndex as $d) : ?>
-                                                    <tr>
-                                                        <td class="text-center"><?php echo $no++; ?></td>
-                                                        <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                        <td class="text-center">Total</td>
-                                                        <td class="text-center">Total</td>
-                                                        <td class="text-center">Total</td>
-                                                    </tr>
 
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
+                                        <?php
+                                        if ($this->input->get('sort') == 2) { ?>
+
+                                            <table id="dataTablesAsc1" class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">Nama Dosen</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $no = 1;
+                                                    foreach ($dataTab as $d) : ?>
+                                                        <tr>
+                                                            <td class="text-center"><?php echo $no++; ?></td>
+                                                            <td class="text-left"><?php echo $d->id_penilaian_dosen . '@uii.ac.id<br><strong>' . $d->nama_dosen . '</strong>'; ?></td>
+                                                        </tr>
+
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+
+                                        <?php }
+                                        ?>
 
                                     </div>
                                 </div>
