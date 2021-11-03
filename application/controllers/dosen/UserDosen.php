@@ -55,16 +55,14 @@ class UserDosen extends CI_Controller
                 'penilaian_semester.aktif'              => 1,
                 'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
             ),
-            'penilaian_absensi.id_penilaian_mahasiswa',
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->num_rows();
 
-        $data['countMkl'] = $this->mUserDosen->dataIndex(
+        $data['countMkl'] = $this->mUserDosen->dataMatkul(
             array(
                 'penilaian_semester.aktif'              => 1,
                 'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
             ),
-            'penilaian_jadwal.id_penilaian_matakuliah',
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->num_rows();
 
@@ -73,7 +71,6 @@ class UserDosen extends CI_Controller
                 'penilaian_semester.aktif'              => 1,
                 'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
             ),
-            'penilaian_mahasiswa.id_penilaian_mahasiswa',
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->result();
 
@@ -110,7 +107,8 @@ class UserDosen extends CI_Controller
         if (isset($matakuliah)) {
             $data['dataAbsensi']  = $this->mUserDosen->dataAbsensi(
                 array(
-                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah
+                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
+                    'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
                 )
             )->result();
         }

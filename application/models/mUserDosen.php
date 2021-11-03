@@ -97,7 +97,7 @@ class mUserDosen extends CI_Model
         return $query;
     }
 
-    function dataIndex($where, $groupby, $orderby)
+    function dataIndex($where, $orderby)
     {
         $query = $this->db->select('penilaian_jadwal.kelas, penilaian_dosen.*, penilaian_matakuliah.*, penilaian_mahasiswa.*')
             ->from('penilaian_jadwal')
@@ -107,7 +107,6 @@ class mUserDosen extends CI_Model
             ->join('penilaian_mahasiswa', 'penilaian_absensi.id_penilaian_mahasiswa = penilaian_mahasiswa.id_penilaian_mahasiswa')
             ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
             ->where($where)
-            ->group_by($groupby)
             ->order_by($orderby)
             ->get();
         return $query;
