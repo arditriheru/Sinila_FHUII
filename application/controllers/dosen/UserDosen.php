@@ -118,7 +118,33 @@ class UserDosen extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    // Import excel validasi pemagangan
+    // Input nilai
+    public function inputNilai()
+    {
+        $id_penilaian_absensi = $this->input->post('id_penilaian_absensi');
+
+        $data   = array();
+        $data = array();
+        foreach ($id_penilaian_absensi as $d => $val) {
+            $data[] = array(
+                "id_penilaian_absensi"  => $_POST['id_penilaian_absensi'][$d],
+                "uts"                   => $_POST['uts'][$d],
+                "uas"                   => $_POST['uas'][$d],
+            );
+        }
+
+        if (!$this->mUserDosen->update_batch('penilaian_absensi', $data, 'id_penilaian_absensi')) {
+
+            $this->session->set_flashdata('success', 'Berhasil memperbarui nilai');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+
+            $this->session->set_flashdata('error', 'Gagal memperbarui nilai');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    // Import excel nilai
     public function uploadNilai()
     {
         $upload_file    = $_FILES['upload_file']['name'];
@@ -167,32 +193,6 @@ class UserDosen extends CI_Controller
                 $this->session->set_flashdata('error', 'Gagal upload data');
                 redirect($_SERVER['HTTP_REFERER']);
             }
-        }
-    }
-
-
-    public function inputNilai()
-    {
-        $id_penilaian_absensi = $this->input->post('id_penilaian_absensi');
-
-        $data   = array();
-        $data = array();
-        foreach ($id_penilaian_absensi as $d => $val) {
-            $data[] = array(
-                "id_penilaian_absensi"  => $_POST['id_penilaian_absensi'][$d],
-                "uts"                   => $_POST['uts'][$d],
-                "uas"                   => $_POST['uas'][$d],
-            );
-        }
-
-        if (!$this->mUserDosen->update_batch('penilaian_absensi', $data, 'id_penilaian_absensi')) {
-
-            $this->session->set_flashdata('success', 'Berhasil memperbarui nilai');
-            redirect($_SERVER['HTTP_REFERER']);
-        } else {
-
-            $this->session->set_flashdata('error', 'Gagal memperbarui nilai');
-            redirect($_SERVER['HTTP_REFERER']);
         }
     }
 }

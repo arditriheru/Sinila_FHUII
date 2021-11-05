@@ -96,10 +96,6 @@
                                         <!-- /input-group -->
                                     </div>
                                     <!-- col-lg-6 -->
-                                    <div class="col-lg-6">
-                                        <button class="btn btn-success float-sm-right">Entry Nilai</button>
-                                    </div>
-                                    <!-- col-lg-6 -->
                                     <div class="col-lg-12">
 
                                         <table id="dataTablesAsc1" class="table table-bordered table-hover">
