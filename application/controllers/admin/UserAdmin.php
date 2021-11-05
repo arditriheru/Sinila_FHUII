@@ -55,11 +55,11 @@ class UserAdmin extends CI_Controller
         $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
 
         if ($sort == 2) {
-            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_mahasiswa.nama_mahasiswa ASC')->result();
+            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC')->result();
         } elseif ($sort == 3) {
-            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_mahasiswa.nama_mahasiswa ASC')->result();
+            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC')->result();
         } else {
-            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_mahasiswa.id_penilaian_mahasiswa', 'penilaian_mahasiswa.nama_mahasiswa ASC')->result();
+            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_mahasiswa.id_penilaian_mahasiswa', 'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC')->result();
         }
 
         $this->load->view('templates/header', $data);
@@ -440,10 +440,12 @@ class UserAdmin extends CI_Controller
             for ($i = 1; $i < $sheetcount; $i++) {
                 $id_penilaian_mahasiswa = $sheetdata[$i][0];
                 $nama_mahasiswa         = $sheetdata[$i][1];
+                $id_penilaian_semester  = $this->input->post('id_penilaian_semester');
 
                 $data[] = array(
                     'id_penilaian_mahasiswa'    => $id_penilaian_mahasiswa,
                     'nama_mahasiswa'            => $nama_mahasiswa,
+                    'id_penilaian_semester'     => $id_penilaian_semester,
                 );
             }
 

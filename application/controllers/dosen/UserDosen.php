@@ -71,7 +71,7 @@ class UserDosen extends CI_Controller
                 'penilaian_semester.aktif'              => 1,
                 'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
             ),
-            'penilaian_mahasiswa.nama_mahasiswa ASC'
+            'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC'
         )->result();
 
         $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
@@ -116,5 +116,83 @@ class UserDosen extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('dosen/vDataFilter', $data);
         $this->load->view('templates/footer', $data);
+    }
+
+    // Import excel validasi pemagangan
+    public function uploadNilai()
+    {
+        $upload_file    = $_FILES['upload_file']['name'];
+        $extension      = pathinfo($upload_file, PATHINFO_EXTENSION);
+
+        if ($extension == 'csv') {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        } else if ($extension == 'xls') {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+
+        $spreadsheet    = $reader->load($_FILES['upload_file']['tmp_name']);
+        $sheetdata      = $spreadsheet->getActiveSheet()->toArray();
+        $sheetcount     = count($sheetdata);
+
+        if ($sheetcount > 1) {
+            $data   = array();
+
+            for ($i = 1; $i < $sheetcount; $i++) {
+                $id_penilaian_mahasiswa     = $sheetdata[$i][0];
+                $id_penilaian_matakuliah    = $sheetdata[$i][1];
+                $uts                        = $sheetdata[$i][2];
+                $uas                        = $sheetdata[$i][3];
+                $id_penilaian_semester      = $this->input->post('id_penilaian_semester');
+
+                $data[] = array(
+                    'id_penilaian_mahasiswa'        => $id_penilaian_mahasiswa,
+                    'id_penilaian_matakuliah'       => $id_penilaian_matakuliah,
+                    'uts'                           => $uts,
+                    'uas'                           => $uas,
+                );
+
+                // $where[] = array(
+                //     'id_penilaian_mahasiswa'        => $id_penilaian_mahasiswa,
+                //     'id_penilaian_matakuliah'       => $id_penilaian_matakuliah,
+                //     'id_penilaian_semester'         => $id_penilaian_semester,
+                // );
+            }
+
+            if (!$this->mUserDosen->update_batch('penilaian_absensi', $data, 'id_penilaian_mahasiswa')) {
+                $this->session->set_flashdata('success', 'Berhasil upload data');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $this->session->set_flashdata('error', 'Gagal upload data');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+        }
+    }
+
+
+    public function inputNilai()
+    {
+        $id_penilaian_absensi = $this->input->post('id_penilaian_absensi');
+
+        $data   = array();
+        $data = array();
+        foreach ($id_penilaian_absensi as $d => $val) {
+            $data[] = array(
+                "id_penilaian_absensi"  => $_POST['id_penilaian_absensi'][$d],
+                "uts"                   => $_POST['uts'][$d],
+                "uas"                   => $_POST['uas'][$d],
+            );
+        }
+
+        if (!$this->mUserDosen->update_batch('penilaian_absensi', $data, 'id_penilaian_absensi')) {
+
+            $this->session->set_flashdata('success', 'Berhasil memperbarui nilai');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+
+            $this->session->set_flashdata('error', 'Gagal memperbarui nilai');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
     }
 }

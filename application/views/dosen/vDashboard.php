@@ -122,9 +122,9 @@
                                                     <tr>
                                                         <td class="text-center"><?= $no++; ?></td>
                                                         <td class="text-left"><?= $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                        <td class="text-left"><?= 'Kelas ' . $d->kelas . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
-                                                        <td class="text-center"><input type="number" style="width: 70px;" value="<?= $d->uts; ?>"></td>
-                                                        <td class="text-center"><input type="number" style="width: 70px;" value="<?= $d->uas; ?>"></td>
+                                                        <td class="text-left"><?php echo ' (' . $d->kelas . ') ' . $d->id_penilaian_matakuliah . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
+                                                        <td class="text-center"><?= $d->uts; ?></td>
+                                                        <td class="text-center"><?= $d->uas; ?></td>
                                                         <td class="text-center"><?= $d->tugas; ?></td>
                                                     </tr>
 

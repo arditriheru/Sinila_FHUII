@@ -94,7 +94,7 @@
                                                         <tr>
                                                             <td class="text-center"><?php echo $no++; ?></td>
                                                             <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                            <td class="text-center"><?php echo $d->matakuliah; ?></td>
+                                                            <td class="text-left"><?php echo ' (' . $d->kelas . ') ' . $d->id_penilaian_matakuliah . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
                                                             <td class="text-center"><?= $d->uts; ?>
                                                             <td class="text-center"><?= $d->uas; ?>
                                                             <td class="text-center"><?= $d->tugas; ?></td>

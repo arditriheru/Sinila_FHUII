@@ -416,6 +416,18 @@
                                 <div class="col-sm-12">
                                     <a class="btn btn-primary mb-2" href="<?php echo base_url(); ?>admin/userAdmin/templateDataMahasiswa">Download Template</a>
                                     <div class="form-group">
+                                        <label class="required">Semester</label>
+                                        <select name="id_penilaian_semester" class="form-control select2" style="width: 100%;" required="">
+                                            <option value="" selected="">Pilih</option>
+                                            <?php
+                                            foreach ($this->mUserAdmin->dataSemester(array('aktif' => 1), 'id_penilaian_semester DESC')->result() as $d) : ?>
+                                                <option value="<?php echo $d->id_penilaian_semester; ?>"><?php echo $d->thn_akademik . ' - ' . $d->nm_semester; ?></option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                    <div class="form-group">
                                         <label for="dokumen">Dokumen</label>
                                         <div class="custom-file">
                                             <input type="file" name="upload_file" id="upload_file" required accept=".csv, .xls, .xlsx">

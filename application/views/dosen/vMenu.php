@@ -100,7 +100,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="modal" data-target="#modalUploadJadwal" class="nav-link">
+                            <a href="#" data-toggle="modal" data-target="#modalUploadNilai" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Upload</p>
                             </a>
@@ -113,3 +113,62 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+
+<!-- modal Upload Nilai -->
+<div class="modal fade" id="modalUploadNilai">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Data Nilai</h4><br>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-prevent" action="<?php echo base_url('dosen/userDosen/uploadNilai') ?>" method="post" enctype="multipart/form-data">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Upload Excel</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a class="btn btn-primary mb-2" href="<?php echo base_url('dosen/userDosen/templateDataJadwal'); ?>">Download Template</a>
+                                    <div class="form-group">
+                                        <label class="required">Semester</label>
+                                        <select name="id_penilaian_semester" class="form-control select2" style="width: 100%;" required="">
+                                            <option value="" selected="">Pilih</option>
+                                            <?php
+                                            foreach ($this->mUserDosen->dataSemester(array('aktif' => 1), 'id_penilaian_semester DESC')->result() as $d) : ?>
+                                                <option value="<?php echo $d->id_penilaian_semester; ?>"><?php echo $d->thn_akademik . ' - ' . $d->nm_semester; ?></option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                    <div class="form-group">
+                                        <label for="dokumen">Dokumen</label>
+                                        <div class="custom-file">
+                                            <input type="file" name="upload_file" id="upload_file" required accept=".csv, .xls, .xlsx">
+                                        </div>
+                                        <p class="text-danger">Lampirkan file dengan ekstensi .Csv / .Xls / .Xlsx</p>
+                                        <button class="btn btn-info button-prevent mt-1" type="submit">
+                                            <!-- spinner-border adalah component bawaan bootstrap untuk menampilakn roda berputar  -->
+                                            <div class="spinner"><i role="status" class="spinner-border spinner-border-sm"></i> Upload </div>
+                                            <div class="hide-text">Upload</div>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
