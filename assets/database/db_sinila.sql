@@ -16,120 +16,24 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_sinila` /*!40100 DEFAULT CHARACTER S
 
 USE `db_sinila`;
 
-/*Table structure for table `multi_bahasa` */
+/*Table structure for table `absensi` */
 
-DROP TABLE IF EXISTS `multi_bahasa`;
+DROP TABLE IF EXISTS `absensi`;
 
-CREATE TABLE `multi_bahasa` (
-  `id_multi_bahasa` varchar(100) NOT NULL,
-  `indonesia` varchar(100) NOT NULL,
-  `english` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_multi_bahasa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `multi_bahasa` */
-
-insert  into `multi_bahasa`(`id_multi_bahasa`,`indonesia`,`english`) values 
-('akademik','Akademik','Academic'),
-('aktif','Aktif','Active'),
-('alamat_instansi','Alamat Instansi','Agency Address'),
-('alamat_lengkap','Alamat Lengkap','Complete Address'),
-('alamat_url','Alamat URL','URL Address'),
-('berkas','Berkas','Documents'),
-('buka','Buka','Open'),
-('buku_kegiatan','Buku Kegiatan','Activity Book'),
-('daftar_magang','Daftar Magang','Internship List'),
-('daftar_sekarang','Daftar Sekarang','Register Now'),
-('departemen','Departemen','Departement'),
-('detail','Detail','Details'),
-('diproses','Sedang Diproses','On Process'),
-('disetujui','Disetujui','Approved'),
-('distribusi_dosen','Distribusi Dosen','Lecturer Distribution'),
-('dokumen','Dokumen','Document'),
-('dokumen_ijazah','Dokumen Ijazah','Diploma Documents'),
-('dosen','Dosen','Faculty Members'),
-('edit','Ubah','Edit'),
-('hapus','Hapus','Delete'),
-('import_data','Import Data','Import Data'),
-('indonesia','Indonesia','Indonesian'),
-('informasi','Informasi','Information'),
-('inggris','Inggris','English'),
-('instansi','Instansi','Agency'),
-('instansi_terpilih','Instansi Terpilih','Selected Agency'),
-('jenis','Jenis','Type'),
-('jenis_informasi','Jenis Informasi','Information Type'),
-('jenis_instansi','Jenis Instansi','Agency Type'),
-('jenis_pemagangan','Jenis Pemagangan','Internship Type'),
-('judul','Judul','Tittle'),
-('kategori','Kategori','Category'),
-('kegiatan','Kegiatan','Activity'),
-('kepala_departemen','Kepala Departemen','Head of Departement'),
-('keterangan','Keterangan','Description'),
-('konsultasi','Konsultasi','Consultancy'),
-('konsultasi_tugas_akhir','Konsultasi Tugas Akhir','Final Project Consultancy'),
-('kontak','Kontak','Contact\r\n'),
-('lihat','Lihat','View'),
-('magang','Magang','Internship'),
-('mahasiswa','Mahasiswa','Student'),
-('mendaftar_ta','Daftar Tugas Akhir','Register Final Project'),
-('menu_utama','Menu Utama','Dashboard'),
-('nama','Nama','Name'),
-('nama_departemen','Nama Departemen','Name of Departement'),
-('nama_instansi','Nama Instansi','Agency Name'),
-('nama_mahasiswa','Nama Mahasiswa','Student Name'),
-('nama_ortu','Nama Ortu','Parent Name'),
-('nik','NIK','ID Member of Faculty'),
-('nim','NIM','ID Number'),
-('nonaktif','Non Aktif','Non Active'),
-('pembimbing','Pembimbing','Mentor'),
-('pencarian_dokumen','Pencarian Dokumen','Document Search'),
-('pendadaran','Pendadaran','Defense'),
-('periode_pemagangan','Periode Pemagangan','Internship Period\r\n'),
-('pilihan_instansi','Pilihan Instansi','Agency Choice'),
-('pimpinan_instansi','Pimpinan Instansi','Head of Agency'),
-('proposal','Proposal','Proposal'),
-('proposal_tugas_akhir','Proposal Tugas Akhir','Final Project Proposal'),
-('registrasi','Registrasi','Registration'),
-('registrasi_baru','Registrasi Baru','New Registration'),
-('registrasi_data','Registrasi Data','Data Registration'),
-('reviewer','Reviewer','Reviewer'),
-('seminar','Seminar','Seminar'),
-('surat_pengantar','Surat Pengantar','Cover Letter'),
-('tahap_status','Tahap Status','Step Status'),
-('tahun','Tahun','Year'),
-('tahun_akademik','Tahun Akademik','Academic Year'),
-('tambah','Tambah','Add'),
-('tambah_data','Tambah Data','Add Data'),
-('tanggal','Tanggal','Date'),
-('tanggal_akhir','Tanggal Akhir','End Date'),
-('tanggal_awal','Tanggal Awal','Start Date'),
-('tmpt_tgl_lahir','Tempat, Tgl Lahir','Date of Birth'),
-('tugas_akhir','Tugas Akhir','Final Project'),
-('unggah','Unggah','Upload'),
-('unggah_berkas','Unggah Berkas','Upload File'),
-('unggah_outline','Unggah Outline','Upload Outline'),
-('upload_informasi','Upload Informasi','Upload Information'),
-('usul','Usul','Suggestion'),
-('validasi','Validasi','Validation');
-
-/*Table structure for table `penilaian_absensi` */
-
-DROP TABLE IF EXISTS `penilaian_absensi`;
-
-CREATE TABLE `penilaian_absensi` (
-  `id_penilaian_absensi` int(100) NOT NULL AUTO_INCREMENT,
-  `id_penilaian_mahasiswa` char(8) NOT NULL,
-  `id_penilaian_semester` int(10) NOT NULL,
-  `id_penilaian_matakuliah` char(8) NOT NULL,
+CREATE TABLE `absensi` (
+  `id_absensi` int(100) NOT NULL AUTO_INCREMENT,
+  `id_mahasiswa` char(8) NOT NULL,
+  `id_semester` int(10) NOT NULL,
+  `id_matakuliah` char(8) NOT NULL,
   `uts` int(3) NOT NULL DEFAULT 0,
   `uas` int(3) NOT NULL DEFAULT 0,
   `tugas` int(3) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_penilaian_absensi`)
+  PRIMARY KEY (`id_absensi`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23808 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_absensi` */
+/*Data for the table `absensi` */
 
-insert  into `penilaian_absensi`(`id_penilaian_absensi`,`id_penilaian_mahasiswa`,`id_penilaian_semester`,`id_penilaian_matakuliah`,`uts`,`uas`,`tugas`) values 
+insert  into `absensi`(`id_absensi`,`id_mahasiswa`,`id_semester`,`id_matakuliah`,`uts`,`uas`,`tugas`) values 
 (1,'14410677',1,'41013831',0,0,0),
 (2,'14410355',1,'41013831',0,0,0),
 (3,'14410681',1,'41013831',0,0,0),
@@ -1169,7 +1073,7 @@ insert  into `penilaian_absensi`(`id_penilaian_absensi`,`id_penilaian_mahasiswa`
 (1037,'19410665',1,'FH171010',0,0,0),
 (1038,'19410511',1,'FH171010',0,0,0),
 (1039,'19410526',1,'FH171010',0,0,0),
-(1040,'19410167',1,'FH171010',70,78,0),
+(1040,'19410167',1,'FH171010',0,0,0),
 (1041,'19410129',1,'FH171010',0,0,0),
 (1042,'19410475',1,'FH171010',0,0,0),
 (1043,'20410336',1,'FH171010',0,0,0),
@@ -14194,10 +14098,10 @@ insert  into `penilaian_absensi`(`id_penilaian_absensi`,`id_penilaian_mahasiswa`
 (14062,'21410396',1,'FH171111',0,0,0),
 (14063,'21410585',1,'FH171111',0,0,0),
 (14064,'21410409',1,'FH171111',0,0,0),
-(14065,'21410597',1,'FH171111',0,0,0),
+(14065,'21410597',1,'FH171111',0,0,0);
+insert  into `absensi`(`id_absensi`,`id_mahasiswa`,`id_semester`,`id_matakuliah`,`uts`,`uas`,`tugas`) values 
 (14066,'21410419',1,'FH171111',0,0,0),
-(14067,'21410608',1,'FH171111',0,0,0);
-insert  into `penilaian_absensi`(`id_penilaian_absensi`,`id_penilaian_mahasiswa`,`id_penilaian_semester`,`id_penilaian_matakuliah`,`uts`,`uas`,`tugas`) values 
+(14067,'21410608',1,'FH171111',0,0,0),
 (14068,'21410429',1,'FH171111',0,0,0),
 (14069,'21410611',1,'FH171111',0,0,0),
 (14070,'21410439',1,'FH171111',0,0,0),
@@ -23939,20 +23843,38 @@ insert  into `penilaian_absensi`(`id_penilaian_absensi`,`id_penilaian_mahasiswa`
 (23806,'18410526',1,'UNI608',0,0,0),
 (23807,'18410713',1,'UNI608',0,0,0);
 
-/*Table structure for table `penilaian_dosen` */
+/*Table structure for table `bobot_nilai` */
 
-DROP TABLE IF EXISTS `penilaian_dosen`;
+DROP TABLE IF EXISTS `bobot_nilai`;
 
-CREATE TABLE `penilaian_dosen` (
-  `id_penilaian_dosen` char(10) NOT NULL,
+CREATE TABLE `bobot_nilai` (
+  `id_bobot_nilai` int(100) NOT NULL AUTO_INCREMENT,
+  `id_jadwal` int(100) NOT NULL,
+  `uts` int(3) NOT NULL,
+  `uas` int(3) NOT NULL,
+  `tugas` int(3) NOT NULL,
+  PRIMARY KEY (`id_bobot_nilai`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `bobot_nilai` */
+
+insert  into `bobot_nilai`(`id_bobot_nilai`,`id_jadwal`,`uts`,`uas`,`tugas`) values 
+(1,2,30,30,40);
+
+/*Table structure for table `dosen` */
+
+DROP TABLE IF EXISTS `dosen`;
+
+CREATE TABLE `dosen` (
+  `id_dosen` char(10) NOT NULL,
   `nama_dosen` varchar(50) NOT NULL,
   `password` varchar(100) DEFAULT 'ce28eed1511f631af6b2a7bb0a85d636',
-  PRIMARY KEY (`id_penilaian_dosen`)
+  PRIMARY KEY (`id_dosen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_dosen` */
+/*Data for the table `dosen` */
 
-insert  into `penilaian_dosen`(`id_penilaian_dosen`,`nama_dosen`,`password`) values 
+insert  into `dosen`(`id_dosen`,`nama_dosen`,`password`) values 
 ('004100199','DOSEN FH','ce28eed1511f631af6b2a7bb0a85d636'),
 ('004100406','BUDI SANTOSOS.H., LLM.','ce28eed1511f631af6b2a7bb0a85d636'),
 ('014100109','Dr.Budi Agus RiswandiS.H., M.Hum.','ce28eed1511f631af6b2a7bb0a85d636'),
@@ -24062,22 +23984,22 @@ insert  into `penilaian_dosen`(`id_penilaian_dosen`,`nama_dosen`,`password`) val
 ('974200436','Hj.MEGAWATISH., M.Hum','ce28eed1511f631af6b2a7bb0a85d636'),
 ('984100401','RIO KOSTIANTO WIRONEGOROS.H., M.Hum., Not.','ce28eed1511f631af6b2a7bb0a85d636');
 
-/*Table structure for table `penilaian_jadwal` */
+/*Table structure for table `jadwal` */
 
-DROP TABLE IF EXISTS `penilaian_jadwal`;
+DROP TABLE IF EXISTS `jadwal`;
 
-CREATE TABLE `penilaian_jadwal` (
-  `id_penilaian_jadwal` int(100) NOT NULL AUTO_INCREMENT,
-  `id_penilaian_matakuliah` char(8) NOT NULL,
-  `id_penilaian_dosen` char(10) NOT NULL,
-  `id_penilaian_semester` int(10) NOT NULL,
+CREATE TABLE `jadwal` (
+  `id_jadwal` int(100) NOT NULL AUTO_INCREMENT,
+  `id_matakuliah` char(8) NOT NULL,
+  `id_dosen` char(10) NOT NULL,
+  `id_semester` int(10) NOT NULL,
   `kelas` char(1) NOT NULL,
-  PRIMARY KEY (`id_penilaian_jadwal`)
+  PRIMARY KEY (`id_jadwal`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_jadwal` */
+/*Data for the table `jadwal` */
 
-insert  into `penilaian_jadwal`(`id_penilaian_jadwal`,`id_penilaian_matakuliah`,`id_penilaian_dosen`,`id_penilaian_semester`,`kelas`) values 
+insert  into `jadwal`(`id_jadwal`,`id_matakuliah`,`id_dosen`,`id_semester`,`kelas`) values 
 (1,'FH171001','974100469',1,'A'),
 (2,'FH171001','974100469',1,'C'),
 (3,'FH171010','204101306',1,'E'),
@@ -24141,20 +24063,20 @@ insert  into `penilaian_jadwal`(`id_penilaian_jadwal`,`id_penilaian_matakuliah`,
 (61,'UNI603','154100111',1,'A'),
 (62,'UNI606','174100401',1,'A');
 
-/*Table structure for table `penilaian_mahasiswa` */
+/*Table structure for table `mahasiswa` */
 
-DROP TABLE IF EXISTS `penilaian_mahasiswa`;
+DROP TABLE IF EXISTS `mahasiswa`;
 
-CREATE TABLE `penilaian_mahasiswa` (
-  `id_penilaian_mahasiswa` char(8) NOT NULL,
+CREATE TABLE `mahasiswa` (
+  `id_mahasiswa` char(8) NOT NULL,
   `nama_mahasiswa` varchar(50) NOT NULL,
-  `id_penilaian_semester` int(10) NOT NULL,
-  PRIMARY KEY (`id_penilaian_mahasiswa`)
+  `id_semester` int(10) NOT NULL,
+  PRIMARY KEY (`id_mahasiswa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_mahasiswa` */
+/*Data for the table `mahasiswa` */
 
-insert  into `penilaian_mahasiswa`(`id_penilaian_mahasiswa`,`nama_mahasiswa`,`id_penilaian_semester`) values 
+insert  into `mahasiswa`(`id_mahasiswa`,`nama_mahasiswa`,`id_semester`) values 
 ('14410320','INDAH SETYORINI',1),
 ('14410355','RIKA ARDILIANA KUSUMAWATI',1),
 ('14410427','ANDRE ARDIANSYAH',1),
@@ -27093,21 +27015,20 @@ insert  into `penilaian_mahasiswa`(`id_penilaian_mahasiswa`,`nama_mahasiswa`,`id
 ('21410841','MUHAMMAD ARDHA SETIAWAN',1),
 ('21410842','DELLA CARISSA SALSABILA',1);
 
-/*Table structure for table `penilaian_matakuliah` */
+/*Table structure for table `matakuliah` */
 
-DROP TABLE IF EXISTS `penilaian_matakuliah`;
+DROP TABLE IF EXISTS `matakuliah`;
 
-CREATE TABLE `penilaian_matakuliah` (
-  `id_penilaian_matakuliah` char(8) NOT NULL,
+CREATE TABLE `matakuliah` (
+  `id_matakuliah` char(8) NOT NULL,
   `matakuliah` varchar(100) NOT NULL,
   `sks` int(1) NOT NULL,
-  PRIMARY KEY (`id_penilaian_matakuliah`)
+  PRIMARY KEY (`id_matakuliah`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_matakuliah` */
+/*Data for the table `matakuliah` */
 
-insert  into `penilaian_matakuliah`(`id_penilaian_matakuliah`,`matakuliah`,`sks`) values 
-('41013831','Penulisan Hukum / Tugas Akhir\r\n',6),
+insert  into `matakuliah`(`id_matakuliah`,`matakuliah`,`sks`) values 
 ('FH171001','Advokasi Masyarakat',2),
 ('FH171010','Hukum Acara Perdata',4),
 ('FH171019','Hukum Benda-Benda Publik',2),
@@ -27144,69 +27065,82 @@ insert  into `penilaian_matakuliah`(`id_penilaian_matakuliah`,`matakuliah`,`sks`
 ('UNI606','Bahasa Inggris',2),
 ('UNI607','Bahasa Indonesia',2);
 
-/*Table structure for table `penilaian_nilai_akhir` */
+/*Table structure for table `multi_bahasa` */
 
-DROP TABLE IF EXISTS `penilaian_nilai_akhir`;
+DROP TABLE IF EXISTS `multi_bahasa`;
 
-CREATE TABLE `penilaian_nilai_akhir` (
-  `id_penilaian_nilai_akhir` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `multi_bahasa` (
+  `id_multi_bahasa` varchar(100) NOT NULL,
+  `indonesia` varchar(100) NOT NULL,
+  `english` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_multi_bahasa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `multi_bahasa` */
+
+/*Table structure for table `nilai_akhir` */
+
+DROP TABLE IF EXISTS `nilai_akhir`;
+
+CREATE TABLE `nilai_akhir` (
+  `id_nilai_akhir` int(100) NOT NULL AUTO_INCREMENT,
   `id_mahasiswa` int(8) NOT NULL,
-  `id_penilaian_matakuliah` int(11) NOT NULL,
+  `id_matakuliah` int(11) NOT NULL,
   `id_absensi` int(3) NOT NULL,
   `nilai_uts` int(3) NOT NULL DEFAULT 0,
   `nilai_uas` int(3) NOT NULL DEFAULT 0,
   `nilai_tugas` int(3) NOT NULL DEFAULT 0,
   `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id_penilaian_nilai_akhir`)
+  PRIMARY KEY (`id_nilai_akhir`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_nilai_akhir` */
+/*Data for the table `nilai_akhir` */
 
-/*Table structure for table `penilaian_riwayat_nilai` */
+/*Table structure for table `riwayat_nilai` */
 
-DROP TABLE IF EXISTS `penilaian_riwayat_nilai`;
+DROP TABLE IF EXISTS `riwayat_nilai`;
 
-CREATE TABLE `penilaian_riwayat_nilai` (
-  `id_penilaian_riwayat_nilai` int(100) NOT NULL AUTO_INCREMENT,
-  `id_penilaian_absensi` int(100) NOT NULL,
+CREATE TABLE `riwayat_nilai` (
+  `id_riwayat_nilai` int(100) NOT NULL AUTO_INCREMENT,
+  `id_absensi` int(100) NOT NULL,
   `jenis_nilai` varchar(3) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id_penilaian_riwayat_nilai`)
+  PRIMARY KEY (`id_riwayat_nilai`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_riwayat_nilai` */
+/*Data for the table `riwayat_nilai` */
 
-/*Table structure for table `penilaian_semester` */
+/*Table structure for table `semester` */
 
-DROP TABLE IF EXISTS `penilaian_semester`;
+DROP TABLE IF EXISTS `semester`;
 
-CREATE TABLE `penilaian_semester` (
-  `id_penilaian_semester` int(10) NOT NULL AUTO_INCREMENT,
-  `id_penilaian_thn_akademik` int(10) NOT NULL,
+CREATE TABLE `semester` (
+  `id_semester` int(10) NOT NULL AUTO_INCREMENT,
+  `id_thn_akademik` int(10) NOT NULL,
   `nama_semester` varchar(6) NOT NULL,
   `aktif` int(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id_penilaian_semester`)
+  PRIMARY KEY (`id_semester`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_semester` */
+/*Data for the table `semester` */
 
-insert  into `penilaian_semester`(`id_penilaian_semester`,`id_penilaian_thn_akademik`,`nama_semester`,`aktif`) values 
+insert  into `semester`(`id_semester`,`id_thn_akademik`,`nama_semester`,`aktif`) values 
 (1,1,'1',1),
 (2,1,'2',0);
 
-/*Table structure for table `penilaian_thn_akademik` */
+/*Table structure for table `thn_akademik` */
 
-DROP TABLE IF EXISTS `penilaian_thn_akademik`;
+DROP TABLE IF EXISTS `thn_akademik`;
 
-CREATE TABLE `penilaian_thn_akademik` (
-  `id_penilaian_thn_akademik` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `thn_akademik` (
+  `id_thn_akademik` int(10) NOT NULL AUTO_INCREMENT,
   `thn_akademik` varchar(9) NOT NULL,
-  PRIMARY KEY (`id_penilaian_thn_akademik`)
+  PRIMARY KEY (`id_thn_akademik`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `penilaian_thn_akademik` */
+/*Data for the table `thn_akademik` */
 
-insert  into `penilaian_thn_akademik`(`id_penilaian_thn_akademik`,`thn_akademik`) values 
+insert  into `thn_akademik`(`id_thn_akademik`,`thn_akademik`) values 
 (1,'2021/2022');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
