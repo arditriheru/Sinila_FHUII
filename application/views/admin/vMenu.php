@@ -84,8 +84,28 @@
                 <li class="nav-item">
                     <a href="<?php echo base_url(); ?>admin/userAdmin/index?menuUtama=active" class="nav-link <?php echo $this->input->get('menuUtama'); ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p><?php echo $lan_menu_utama; ?></p>
+                        <p>Menu Utama</p>
                     </a>
+                </li>
+                <li class="nav-item <?php echo $this->input->get('menuMahasiswaOpen'); ?>">
+                    <a href="#" class="nav-link <?php echo $this->input->get('menuMahasiswa'); ?>">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Mahasiswa<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>admin/userAdmin/dataMahasiswa?menuMahasiswaOpen=menu-open&menuMahasiswa=active&menuLihatMahasiswa=active" class="nav-link <?php echo $this->input->get('menuLihatMahasiswa'); ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Lihat</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" data-toggle="modal" data-target="#modalUploadMahasiswa" class="nav-link <?php echo $this->input->get('menuUploadMahasiswa'); ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Upload</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item <?php echo $this->input->get('menuJadwalOpen'); ?>">
                     <a href="#" class="nav-link <?php echo $this->input->get('menuJadwal'); ?>">
@@ -146,12 +166,6 @@
                             <a href="#" data-toggle="modal" data-target="#modalUploadDosen" class="nav-link <?php echo $this->input->get('menuUploadMatakuliah'); ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dosen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" data-toggle="modal" data-target="#modalUploadMahasiswa" class="nav-link <?php echo $this->input->get('menuUploadMahasiswa'); ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Mahasiswa</p>
                             </a>
                         </li>
                         <li class="nav-item">

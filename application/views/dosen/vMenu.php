@@ -84,7 +84,7 @@
                 <li class="nav-item">
                     <a href="<?php echo base_url(); ?>dosen/userDosen/index?menuUtama=active" class="nav-link <?php echo $this->input->get('menuUtama'); ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p><?php echo $lan_menu_utama; ?></p>
+                        <p>Menu Utama</p>
                     </a>
                 </li>
                 <li class="nav-item <?php echo $this->input->get('menuJadwalOpen'); ?>">

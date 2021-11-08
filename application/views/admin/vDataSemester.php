@@ -60,11 +60,11 @@
                                                             </a>
                                                             <?php if ($d->aktif == 1) { ?>
                                                                 <a href="<?php echo base_url('admin/userAdmin/nonaktifDataSemesterAksi/' . $d->id_semester); ?>" class="btn btn-success btn-xs mb-3" onclick="javascript: return confirm('Yakin non-aktifkan semester?')">
-                                                                    <i class="fas fa-check"></i> <?php echo $lan_aktif; ?>
+                                                                    <i class="fas fa-check"></i> Aktif
                                                                 </a>
                                                             <?php } else { ?>
                                                                 <a href="<?php echo base_url('admin/userAdmin/aktifDataSemesterAksi/' . $d->id_semester); ?>" class="btn btn-danger btn-xs mb-3" onclick="javascript: return confirm('Yakin aktifkan semester?')">
-                                                                    <i class="fas fa-times"></i> <?php echo $lan_nonaktif; ?>
+                                                                    <i class="fas fa-times"></i> Nonaktif
                                                                 </a>
                                                             <?php } ?>
 
@@ -122,7 +122,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label><?php echo $lan_tahun_akademik; ?></label>
+                                        <label>Tahun Akademik</label>
                                         <select name="id_thn_akademik" class="form-control select2" style="width: 100%;" required="">
                                             <option value="" selected="">Pilih</option>
 
@@ -183,7 +183,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label><?php echo $lan_tahun_akademik; ?></label>
+                                            <label>Tahun Akademik</label>
                                             <select name="id_thn_akademik" class="form-control select2" style="width: 100%;" required="">
                                                 <option value="<?php echo $d->id_thn_akademik; ?>" selected=""><?php echo $d->thn_akademik; ?></option>
 

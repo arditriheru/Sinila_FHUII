@@ -113,6 +113,20 @@ class mUserAdmin extends CI_Model
         return $query;
     }
 
+    function dataMahasiswa()
+    {
+        $query = $this->db->select("*,
+        CASE
+            WHEN mahasiswa.id_semester=1 THEN 'Ganjil'
+            WHEN mahasiswa.id_semester=2 THEN 'Genap'
+            END nm_semester")
+            ->from('mahasiswa')
+            ->join('semester', 'mahasiswa.id_semester = semester.id_semester')
+            ->join('thn_akademik', 'semester.id_thn_akademik = thn_akademik.id_thn_akademik')
+            ->get();
+        return $query;
+    }
+
     function dataMatkul($where)
     {
         $query = $this->db->select('matakuliah.*, jadwal.kelas')

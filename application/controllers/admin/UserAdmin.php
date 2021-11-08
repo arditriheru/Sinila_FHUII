@@ -247,6 +247,33 @@ class UserAdmin extends CI_Controller
         }
     }
 
+    // Data Mahasiswa
+    public function dataMahasiswa()
+    {
+        $lang = $this->mUserAdmin->switchLang($this->session->userdata('nilai_bahasa'))->result();
+
+        foreach ($lang as $d) {
+            $data['lan_' . $d->id_multi_bahasa] = $d->translate;
+        }
+
+        $data['title']      = getDateIndo();
+        $data['subtitle']   = "Mahasiswa";
+
+        $periodeAktif = $this->mUserAdmin->periodeAktif();
+
+        if ($periodeAktif->num_rows() > 0) {
+            $data['dataPeriodeAktif']   = $this->mUserAdmin->periodeAktif()->row();
+        } else {
+            $data['dataPeriodeAktif']   = 'Kosong';
+        }
+
+        $data['dataMahasiswa']  = $this->mUserAdmin->dataMahasiswa()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('admin/vDataMahasiswa', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
     // Data Jadwal
     public function dataJadwal()
     {
