@@ -29,7 +29,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"><strong>Tahun Akademik : 2021/2022</strong></h3>
+                                <h3 class="card-title">Tahun Akademik : <strong><?= $dataPeriodeAktif->thn_akademik . ' - ' . $dataPeriodeAktif->nm_semester; ?></strong></h3>
                             </div>
                             <!-- /.card-header -->
                         </div>

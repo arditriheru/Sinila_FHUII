@@ -51,15 +51,15 @@ class UserAdmin extends CI_Controller
 
         $sort = $this->input->get('short');
 
-        $data['countMhs']       = $this->mUserAdmin->dataIndex('penilaian_absensi.id_penilaian_mahasiswa', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countDsn']       = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countMkl']       = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
+        $data['countMhs']       = $this->mUserAdmin->dataIndex('absensi.id_mahasiswa', 'mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['countDsn']       = $this->mUserAdmin->dataIndex('jadwal.id_dosen', 'mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['countMkl']       = $this->mUserAdmin->dataIndex('jadwal.id_matakuliah', 'mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['dataThnAkad']    = $this->db->query('SELECT * FROM thn_akademik ORDER BY id_thn_akademik DESC LIMIT 10')->result();
 
         $data['dataIndex'] = $this->mUserAdmin->dataMatkul(
             array(
-                'penilaian_semester.id_penilaian_semester'  => $periodeAktif->row()->nama_semester,
-                'penilaian_thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
+                'semester.id_semester'  => $periodeAktif->row()->nama_semester,
+                'thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
             )
         )->result();
 
@@ -86,8 +86,8 @@ class UserAdmin extends CI_Controller
 
         $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi(
             array(
-                'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
-                'penilaian_jadwal.kelas'                    => $kelas,
+                'absensi.id_matakuliah' => $matakuliah,
+                'jadwal.kelas'                    => $kelas,
             )
         )->result();
 
@@ -109,8 +109,8 @@ class UserAdmin extends CI_Controller
 
         $data['dataMatkul'] = $this->mUserAdmin->dataMatkul(
             array(
-                'penilaian_semester.id_penilaian_semester'  => $this->input->get('semester'),
-                'penilaian_thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
+                'semester.id_semester'  => $this->input->get('semester'),
+                'thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
             )
         )->result();
 
@@ -120,8 +120,8 @@ class UserAdmin extends CI_Controller
         if (isset($matakuliah)) {
             $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi(
                 array(
-                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
-                    'penilaian_jadwal.kelas'                    => $kelas,
+                    'absensi.id_matakuliah' => $matakuliah,
+                    'jadwal.kelas'                    => $kelas,
                 )
             )->result();
         }
@@ -143,19 +143,27 @@ class UserAdmin extends CI_Controller
         $data['title']          = getDateIndo();
         $data['subtitle']       = "Data Semester";
 
+        $periodeAktif = $this->mUserAdmin->periodeAktif();
+
+        if ($periodeAktif->num_rows() > 0) {
+            $data['dataPeriodeAktif']   = $this->mUserAdmin->periodeAktif()->row();
+        } else {
+            $data['dataPeriodeAktif']   = 'Kosong';
+        }
+
         $date                   = date('Y') . '/' . date('Y', strtotime('+1 year', strtotime(date('Y'))));
 
-        if (!$this->mUserAdmin->countData('penilaian_thn_akademik', array('thn_akademik' => $date)) > 0) {
-            $this->mUserAdmin->insertData('penilaian_thn_akademik', array(
+        if (!$this->mUserAdmin->countData('thn_akademik', array('thn_akademik' => $date)) > 0) {
+            $this->mUserAdmin->insertData('thn_akademik', array(
                 'thn_akademik' => $date
             ));
         }
 
         $data['thn_akademik']   = getThnAkademik();
-        $data['dataSemester']   = $this->mUserAdmin->dataSemester('id_penilaian_semester IS NOT NULL', 'id_penilaian_semester DESC')->result();
-        $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 2')->result();
-        $data['count1']         = $this->mUserAdmin->countData('penilaian_semester', 'id_penilaian_semester IS NOT NULL');
-        $data['count2']         = $this->mUserAdmin->countData('penilaian_thn_akademik', 'id_penilaian_thn_akademik IS NOT NULL');
+        $data['dataSemester']   = $this->mUserAdmin->dataSemester('id_semester IS NOT NULL', 'id_semester DESC')->result();
+        $data['dataThnAkad']    = $this->db->query('SELECT * FROM thn_akademik ORDER BY id_thn_akademik DESC LIMIT 2')->result();
+        $data['count1']         = $this->mUserAdmin->countData('semester', 'id_semester IS NOT NULL');
+        $data['count2']         = $this->mUserAdmin->countData('thn_akademik', 'id_thn_akademik IS NOT NULL');
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/vDataSemester', $data);
@@ -165,11 +173,11 @@ class UserAdmin extends CI_Controller
     public function tambahDataSemesterAksi()
     {
         $data = array(
-            'id_penilaian_thn_akademik' => $this->input->post('id_penilaian_thn_akademik'),
+            'id_thn_akademik' => $this->input->post('id_thn_akademik'),
             'nama_semester'             => $this->input->post('nama_semester'),
         );
 
-        if (!$this->mUserAdmin->insertData('penilaian_semester', $data)) {
+        if (!$this->mUserAdmin->insertData('semester', $data)) {
 
             $this->session->set_flashdata('success', 'Berhasil menambah data');
             redirect($_SERVER['HTTP_REFERER']);
@@ -183,11 +191,11 @@ class UserAdmin extends CI_Controller
     public function editDataSemesterAksi($id)
     {
         $data = array(
-            'id_penilaian_thn_akademik' => $this->input->post('id_penilaian_thn_akademik'),
+            'id_thn_akademik' => $this->input->post('id_thn_akademik'),
             'nama_semester'             => $this->input->post('nama_semester'),
         );
 
-        if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
+        if (!$this->mUserAdmin->updateData('semester', $data, array('id_semester' => $id))) {
 
             $this->session->set_flashdata('success', 'Berhasil memperbarui data');
             redirect($_SERVER['HTTP_REFERER']);
@@ -204,7 +212,7 @@ class UserAdmin extends CI_Controller
             'aktif'      => 0,
         );
 
-        if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
+        if (!$this->mUserAdmin->updateData('semester', $data, array('id_semester' => $id))) {
 
             $this->session->set_flashdata('success', 'Berhasil nonaktifkan data');
             redirect($_SERVER['HTTP_REFERER']);
@@ -221,12 +229,12 @@ class UserAdmin extends CI_Controller
             'aktif'      => 1,
         );
 
-        if ($this->mUserAdmin->countData('penilaian_semester', 'aktif=1') > 0) {
+        if ($this->mUserAdmin->countData('semester', 'aktif=1') > 0) {
             $this->session->set_flashdata('error', 'Nonaktifkan terlebih dahulu semester yang aktif');
             redirect($_SERVER['HTTP_REFERER']);
         } else {
 
-            if (!$this->mUserAdmin->updateData('penilaian_semester', $data, array('id_penilaian_semester' => $id))) {
+            if (!$this->mUserAdmin->updateData('semester', $data, array('id_semester' => $id))) {
 
                 $this->session->set_flashdata('success', 'Berhasil aktifkan data');
                 redirect($_SERVER['HTTP_REFERER']);
@@ -250,6 +258,14 @@ class UserAdmin extends CI_Controller
 
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
+
+        $periodeAktif = $this->mUserAdmin->periodeAktif();
+
+        if ($periodeAktif->num_rows() > 0) {
+            $data['dataPeriodeAktif']   = $this->mUserAdmin->periodeAktif()->row();
+        } else {
+            $data['dataPeriodeAktif']   = 'Kosong';
+        }
 
         $data['dataJadwal']  = $this->mUserAdmin->dataJadwal()->result();
 
@@ -279,20 +295,20 @@ class UserAdmin extends CI_Controller
             $data   = array();
 
             for ($i = 1; $i < $sheetcount; $i++) {
-                $id_penilaian_matakuliah    = $sheetdata[$i][0];
-                $id_penilaian_dosen         = $sheetdata[$i][1];
+                $id_matakuliah    = $sheetdata[$i][0];
+                $id_dosen         = $sheetdata[$i][1];
                 $kelas                      = $sheetdata[$i][2];
-                $id_penilaian_semester      = $this->input->post('id_penilaian_semester');
+                $id_semester      = $this->input->post('id_semester');
 
                 $data[] = array(
-                    'id_penilaian_matakuliah'     => $id_penilaian_matakuliah,
-                    'id_penilaian_dosen'          => $id_penilaian_dosen,
-                    'id_penilaian_semester'       => $id_penilaian_semester,
+                    'id_matakuliah'     => $id_matakuliah,
+                    'id_dosen'          => $id_dosen,
+                    'id_semester'       => $id_semester,
                     'kelas'                       => $kelas,
                 );
             }
 
-            if ($this->mUserAdmin->insert_batch('penilaian_jadwal', $data)) {
+            if ($this->mUserAdmin->insert_batch('jadwal', $data)) {
                 $this->session->set_flashdata('success', 'Berhasil upload data');
                 redirect($_SERVER['HTTP_REFERER']);
             } else {
@@ -314,7 +330,15 @@ class UserAdmin extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
-        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi('penilaian_absensi.id_penilaian_absensi IS NOT NULL')->result();
+        $periodeAktif = $this->mUserAdmin->periodeAktif();
+
+        if ($periodeAktif->num_rows() > 0) {
+            $data['dataPeriodeAktif']   = $this->mUserAdmin->periodeAktif()->row();
+        } else {
+            $data['dataPeriodeAktif']   = 'Kosong';
+        }
+
+        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi('absensi.id_absensi IS NOT NULL')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/vDataAbsensi', $data);
@@ -344,16 +368,16 @@ class UserAdmin extends CI_Controller
             for ($i = 1; $i < $sheetcount; $i++) {
                 $id_mahasiswa           = $sheetdata[$i][0];
                 $id_matakuliah          = $sheetdata[$i][1];
-                $id_penilaian_semester  = $this->input->post('id_penilaian_semester');
+                $id_semester  = $this->input->post('id_semester');
 
                 $data[] = array(
-                    'id_penilaian_mahasiswa'    => $id_mahasiswa,
-                    'id_penilaian_semester'     => $id_penilaian_semester,
-                    'id_penilaian_matakuliah'   => $id_matakuliah,
+                    'id_mahasiswa'    => $id_mahasiswa,
+                    'id_semester'     => $id_semester,
+                    'id_matakuliah'   => $id_matakuliah,
                 );
             }
 
-            if ($this->mUserAdmin->insert_batch('penilaian_absensi', $data)) {
+            if ($this->mUserAdmin->insert_batch('absensi', $data)) {
                 $this->session->set_flashdata('success', 'Berhasil upload data');
                 redirect($_SERVER['HTTP_REFERER']);
             } else {
@@ -432,12 +456,12 @@ class UserAdmin extends CI_Controller
                 $nama_dosen = $sheetdata[$i][1];
 
                 $data[] = array(
-                    'id_penilaian_dosen'    => $nik,
+                    'id_dosen'    => $nik,
                     'nama_dosen'            => $nama_dosen,
                 );
             }
 
-            if ($this->mUserAdmin->insert_batch('penilaian_dosen', $data)) {
+            if ($this->mUserAdmin->insert_batch('dosen', $data)) {
                 $this->session->set_flashdata('success', 'Berhasil upload data');
                 redirect($_SERVER['HTTP_REFERER']);
             } else {
@@ -469,18 +493,18 @@ class UserAdmin extends CI_Controller
             $data   = array();
 
             for ($i = 1; $i < $sheetcount; $i++) {
-                $id_penilaian_mahasiswa = $sheetdata[$i][0];
+                $id_mahasiswa = $sheetdata[$i][0];
                 $nama_mahasiswa         = $sheetdata[$i][1];
-                $id_penilaian_semester  = $this->input->post('id_penilaian_semester');
+                $id_semester  = $this->input->post('id_semester');
 
                 $data[] = array(
-                    'id_penilaian_mahasiswa'    => $id_penilaian_mahasiswa,
+                    'id_mahasiswa'    => $id_mahasiswa,
                     'nama_mahasiswa'            => $nama_mahasiswa,
-                    'id_penilaian_semester'     => $id_penilaian_semester,
+                    'id_semester'     => $id_semester,
                 );
             }
 
-            if ($this->mUserAdmin->insert_batch('penilaian_mahasiswa', $data)) {
+            if ($this->mUserAdmin->insert_batch('mahasiswa', $data)) {
                 $this->session->set_flashdata('success', 'Berhasil upload data');
                 redirect($_SERVER['HTTP_REFERER']);
             } else {

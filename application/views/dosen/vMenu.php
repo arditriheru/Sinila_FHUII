@@ -137,11 +137,11 @@
                                     <a class="btn btn-primary mb-2" href="<?php echo base_url('dosen/userDosen/templateDataJadwal'); ?>">Download Template</a>
                                     <div class="form-group">
                                         <label class="required">Semester</label>
-                                        <select name="id_penilaian_semester" class="form-control select2" style="width: 100%;" required="">
+                                        <select name="id_semester" class="form-control select2" style="width: 100%;" required="">
                                             <option value="" selected="">Pilih</option>
                                             <?php
-                                            foreach ($this->mUserDosen->dataSemester(array('aktif' => 1), 'id_penilaian_semester DESC')->result() as $d) : ?>
-                                                <option value="<?php echo $d->id_penilaian_semester; ?>"><?php echo $d->thn_akademik . ' - ' . $d->nm_semester; ?></option>
+                                            foreach ($this->mUserDosen->dataSemester(array('aktif' => 1), 'id_semester DESC')->result() as $d) : ?>
+                                                <option value="<?php echo $d->id_semester; ?>"><?php echo $d->thn_akademik . ' - ' . $d->nm_semester; ?></option>
                                             <?php endforeach; ?>
 
                                         </select>

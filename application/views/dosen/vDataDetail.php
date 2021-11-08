@@ -60,10 +60,10 @@
                                                     foreach ($dataAbsensi as $d) : ?>
                                                         <tr>
                                                             <td class="text-center"><?php echo $no++; ?></td>
-                                                            <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
+                                                            <td class="text-left"><?php echo $d->id_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
                                                             <td class="text-left"><?php echo ' (Kelas ' . $d->kelas . ') ' . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
                                                             <td class="text-center">
-                                                                <input type="hidden" name="id_penilaian_absensi[]" style="width: 60px;" value="<?= $d->id_penilaian_absensi ?>">
+                                                                <input type="hidden" name="id_absensi[]" style="width: 60px;" value="<?= $d->id_absensi ?>">
                                                                 <input type="number" name="uts[]" style="width: 60px;" value="<?= $d->uts; ?>">
                                                             </td>
                                                             <td class="text-center">

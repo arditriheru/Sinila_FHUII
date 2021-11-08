@@ -110,7 +110,7 @@
                                                 foreach ($dataIndex as $d) : ?>
                                                     <tr>
                                                         <td class="text-center"><?php echo $no++; ?></td>
-                                                        <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataDetail?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester . '&matakuliah=' . $d->id_penilaian_matakuliah . '&kelas=' . $d->kelas . '&namamk=' . $d->matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                        <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataDetail?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester . '&matakuliah=' . $d->id_matakuliah . '&kelas=' . $d->kelas . '&namamk=' . $d->matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
                                                         <td class="text-center"><?php echo $d->kelas; ?></td>
                                                     </tr>
 

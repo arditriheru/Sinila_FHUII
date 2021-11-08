@@ -78,21 +78,21 @@ class mUserDosen extends CI_Model
     function periodeAktif()
     {
         $query = $this->db->query("
-        SELECT penilaian_semester.nama_semester, penilaian_thn_akademik.thn_akademik,
+        SELECT semester.nama_semester, thn_akademik.thn_akademik,
             CASE
-            WHEN penilaian_semester.nama_semester='1' THEN 'Ganjil'
-            WHEN penilaian_semester.nama_semester='2' THEN 'Genap'
+            WHEN semester.nama_semester='1' THEN 'Ganjil'
+            WHEN semester.nama_semester='2' THEN 'Genap'
             END nm_semester
-            FROM penilaian_thn_akademik 
-            JOIN penilaian_semester
-            ON penilaian_thn_akademik.id_penilaian_thn_akademik = penilaian_semester.id_penilaian_thn_akademik
-            WHERE penilaian_semester.id_penilaian_semester IN
+            FROM thn_akademik 
+            JOIN semester
+            ON thn_akademik.id_thn_akademik = semester.id_thn_akademik
+            WHERE semester.id_semester IN
             (
-            SELECT MAX(id_penilaian_semester)
-            FROM penilaian_semester
+            SELECT MAX(id_semester)
+            FROM semester
             WHERE aktif=1
             )
-            AND penilaian_semester.aktif=1
+            AND semester.aktif=1
         ");
         return $query;
     }
@@ -100,12 +100,12 @@ class mUserDosen extends CI_Model
     function dataIndex($where, $orderby)
     {
         $query = $this->db->select('*')
-            ->from('penilaian_jadwal')
-            ->join('penilaian_dosen', 'penilaian_jadwal.id_penilaian_dosen = penilaian_dosen.id_penilaian_dosen')
-            ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')
-            ->join('penilaian_absensi', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_absensi.id_penilaian_matakuliah', 'left')
-            ->join('penilaian_mahasiswa', 'penilaian_absensi.id_penilaian_mahasiswa = penilaian_mahasiswa.id_penilaian_mahasiswa')
-            ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
+            ->from('jadwal')
+            ->join('dosen', 'jadwal.id_dosen = dosen.id_dosen')
+            ->join('matakuliah', 'jadwal.id_matakuliah = matakuliah.id_matakuliah')
+            ->join('absensi', 'jadwal.id_matakuliah = absensi.id_matakuliah', 'left')
+            ->join('mahasiswa', 'absensi.id_mahasiswa = mahasiswa.id_mahasiswa')
+            ->join('semester', 'jadwal.id_semester = semester.id_semester')
             ->where($where)
             ->order_by($orderby)
             ->get();
@@ -114,13 +114,13 @@ class mUserDosen extends CI_Model
 
     function dataMatkul($where)
     {
-        $query = $this->db->select('penilaian_matakuliah.*, penilaian_jadwal.kelas')
-            ->from('penilaian_jadwal')
-            ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')
-            ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
-            ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
+        $query = $this->db->select('matakuliah.*, jadwal.kelas')
+            ->from('jadwal')
+            ->join('matakuliah', 'jadwal.id_matakuliah = matakuliah.id_matakuliah')
+            ->join('semester', 'jadwal.id_semester = semester.id_semester')
+            ->join('thn_akademik', 'semester.id_thn_akademik = thn_akademik.id_thn_akademik')
             ->where($where)
-            ->group_by('penilaian_jadwal.id_penilaian_matakuliah, penilaian_jadwal.kelas')
+            ->group_by('jadwal.id_matakuliah, jadwal.kelas')
             ->get();
         return $query;
     }
@@ -128,14 +128,14 @@ class mUserDosen extends CI_Model
     function dataAbsensi($where)
     {
         $query = $this->db->select('*')
-            ->from('penilaian_jadwal')
-            ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')
-            ->join('penilaian_absensi', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_absensi.id_penilaian_matakuliah', 'left')
-            ->join('penilaian_mahasiswa', 'penilaian_absensi.id_penilaian_mahasiswa = penilaian_mahasiswa.id_penilaian_mahasiswa')
-            ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
-            ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
+            ->from('jadwal')
+            ->join('matakuliah', 'jadwal.id_matakuliah = matakuliah.id_matakuliah')
+            ->join('absensi', 'jadwal.id_matakuliah = absensi.id_matakuliah', 'left')
+            ->join('mahasiswa', 'absensi.id_mahasiswa = mahasiswa.id_mahasiswa')
+            ->join('semester', 'jadwal.id_semester = semester.id_semester')
+            ->join('thn_akademik', 'semester.id_thn_akademik = thn_akademik.id_thn_akademik')
             ->where($where)
-            ->order_by('penilaian_mahasiswa.nama_mahasiswa')
+            ->order_by('mahasiswa.nama_mahasiswa')
             ->get();
         return $query;
     }
@@ -144,12 +144,12 @@ class mUserDosen extends CI_Model
     {
         $query = $this->db->select("*,
         CASE
-		WHEN penilaian_semester.nama_semester='1' THEN 'Ganjil'
-		WHEN penilaian_semester.nama_semester='2' THEN 'Genap'
+		WHEN semester.nama_semester='1' THEN 'Ganjil'
+		WHEN semester.nama_semester='2' THEN 'Genap'
 		END nm_semester
         ")
-            ->from('penilaian_semester')
-            ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik=penilaian_thn_akademik.id_penilaian_thn_akademik')
+            ->from('semester')
+            ->join('thn_akademik', 'semester.id_thn_akademik=thn_akademik.id_thn_akademik')
             ->where($where)
             ->order_by($orderby)
             ->get();

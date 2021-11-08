@@ -53,29 +53,29 @@ class UserDosen extends CI_Controller
 
         $data['countMhs'] = $this->mUserDosen->dataIndex(
             array(
-                'penilaian_semester.aktif'              => 1,
-                'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
+                'semester.aktif'              => 1,
+                'jadwal.id_dosen'   => $id_dosen,
             ),
-            'penilaian_mahasiswa.nama_mahasiswa ASC'
+            'mahasiswa.nama_mahasiswa ASC'
         )->num_rows();
 
         $data['countMkl'] = $this->mUserDosen->dataMatkul(
             array(
-                'penilaian_semester.aktif'              => 1,
-                'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
+                'semester.aktif'              => 1,
+                'jadwal.id_dosen'   => $id_dosen,
             ),
-            'penilaian_mahasiswa.nama_mahasiswa ASC'
+            'mahasiswa.nama_mahasiswa ASC'
         )->num_rows();
 
         $data['dataIndex'] = $this->mUserDosen->dataMatkul(
             array(
-                'penilaian_semester.id_penilaian_semester'  => $periodeAktif->row()->nama_semester,
-                'penilaian_thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
-                'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
+                'semester.id_semester'  => $periodeAktif->row()->nama_semester,
+                'thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
+                'jadwal.id_dosen'       => $id_dosen,
             )
         )->result();
 
-        $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
+        $data['dataThnAkad']    = $this->db->query('SELECT * FROM thn_akademik ORDER BY id_thn_akademik DESC LIMIT 10')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('dosen/vDashboard', $data);
@@ -100,9 +100,9 @@ class UserDosen extends CI_Controller
 
         $data['dataAbsensi']  = $this->mUserDosen->dataAbsensi(
             array(
-                'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
-                'penilaian_jadwal.kelas'                    => $kelas,
-                'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
+                'absensi.id_matakuliah' => $matakuliah,
+                'jadwal.kelas'                    => $kelas,
+                'jadwal.id_dosen'       => $id_dosen,
             )
         )->result();
 
@@ -126,9 +126,9 @@ class UserDosen extends CI_Controller
 
         $data['dataMatkul'] = $this->mUserDosen->dataMatkul(
             array(
-                'penilaian_semester.id_penilaian_semester'  => $this->input->get('semester'),
-                'penilaian_thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
-                'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
+                'semester.id_semester'  => $this->input->get('semester'),
+                'thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
+                'jadwal.id_dosen'       => $id_dosen,
             )
         )->result();
 
@@ -138,9 +138,9 @@ class UserDosen extends CI_Controller
         if (isset($matakuliah)) {
             $data['dataAbsensi']  = $this->mUserDosen->dataAbsensi(
                 array(
-                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
-                    'penilaian_jadwal.kelas'                    => $kelas,
-                    'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
+                    'absensi.id_matakuliah' => $matakuliah,
+                    'jadwal.kelas'                    => $kelas,
+                    'jadwal.id_dosen'       => $id_dosen,
                 )
             )->result();
         }
@@ -153,19 +153,19 @@ class UserDosen extends CI_Controller
     // Input nilai
     public function inputNilai()
     {
-        $id_penilaian_absensi = $this->input->post('id_penilaian_absensi');
+        $id_absensi = $this->input->post('id_absensi');
 
         $data   = array();
         $data = array();
-        foreach ($id_penilaian_absensi as $d => $val) {
+        foreach ($id_absensi as $d => $val) {
             $data[] = array(
-                "id_penilaian_absensi"  => $_POST['id_penilaian_absensi'][$d],
+                "id_absensi"  => $_POST['id_absensi'][$d],
                 "uts"                   => $_POST['uts'][$d],
                 "uas"                   => $_POST['uas'][$d],
             );
         }
 
-        if (!$this->mUserDosen->update_batch('penilaian_absensi', $data, 'id_penilaian_absensi')) {
+        if (!$this->mUserDosen->update_batch('absensi', $data, 'id_absensi')) {
 
             $this->session->set_flashdata('success', 'Berhasil memperbarui nilai');
             redirect($_SERVER['HTTP_REFERER']);
@@ -198,27 +198,21 @@ class UserDosen extends CI_Controller
             $data   = array();
 
             for ($i = 1; $i < $sheetcount; $i++) {
-                $id_penilaian_mahasiswa     = $sheetdata[$i][0];
-                $id_penilaian_matakuliah    = $sheetdata[$i][1];
+                $id_mahasiswa     = $sheetdata[$i][0];
+                $id_matakuliah    = $sheetdata[$i][1];
                 $uts                        = $sheetdata[$i][2];
                 $uas                        = $sheetdata[$i][3];
-                $id_penilaian_semester      = $this->input->post('id_penilaian_semester');
+                $id_semester      = $this->input->post('id_semester');
 
                 $data[] = array(
-                    'id_penilaian_mahasiswa'        => $id_penilaian_mahasiswa,
-                    'id_penilaian_matakuliah'       => $id_penilaian_matakuliah,
+                    'id_mahasiswa'        => $id_mahasiswa,
+                    'id_matakuliah'       => $id_matakuliah,
                     'uts'                           => $uts,
                     'uas'                           => $uas,
                 );
-
-                // $where[] = array(
-                //     'id_penilaian_mahasiswa'        => $id_penilaian_mahasiswa,
-                //     'id_penilaian_matakuliah'       => $id_penilaian_matakuliah,
-                //     'id_penilaian_semester'         => $id_penilaian_semester,
-                // );
             }
 
-            if (!$this->mUserDosen->update_batch('penilaian_absensi', $data, 'id_penilaian_mahasiswa')) {
+            if (!$this->mUserDosen->update_batch('absensi', $data, 'id_mahasiswa')) {
                 $this->session->set_flashdata('success', 'Berhasil upload data');
                 redirect($_SERVER['HTTP_REFERER']);
             } else {

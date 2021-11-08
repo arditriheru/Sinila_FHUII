@@ -28,7 +28,7 @@ class mLogin extends CI_Model
     public function userDosen($where)
     {
         $this->db->select('*');
-        $this->db->from('penilaian_dosen');
+        $this->db->from('dosen');
         $this->db->where($where);
         return $this->db->get();
     }
@@ -36,7 +36,7 @@ class mLogin extends CI_Model
     public function userMhs($where)
     {
         $this->db->select('*');
-        $this->db->from('penilaian_mahasiswa');
+        $this->db->from('mahasiswa');
         $this->db->where($where);
         return $this->db->get();
     }

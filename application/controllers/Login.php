@@ -27,8 +27,8 @@ class login extends CI_Controller
         $password = $this->input->post('password');
 
         $where1 = array(
-            'penilaian_dosen.id_penilaian_dosen'  => $username,
-            'penilaian_dosen.password'            => md5($password),
+            'dosen.id_dosen'  => $username,
+            'dosen.password'            => md5($password),
         );
 
         if ($username == 'admin' && $password == 'adminnilai') {
@@ -43,17 +43,17 @@ class login extends CI_Controller
             $this->session->set_userdata($userdata);
             $this->session->set_flashdata('success', 'Hai, Selamat Datang..');
             redirect('admin/userAdmin/index?menuUtama=active');
-        } elseif ($this->mLogin->login('*', 'penilaian_dosen', $where1) !== FALSE) {
+        } elseif ($this->mLogin->login('*', 'dosen', $where1) !== FALSE) {
 
             $user = $this->mLogin->userDosen($where1)->row();
 
             $userdata = array(
                 'nilai_bahasa'         => 'in',
-                'nilai_id_dosen'       => $user->id_penilaian_dosen,
+                'nilai_id_dosen'       => $user->id_dosen,
                 'nilai_nama_dosen'     => $user->nama_dosen,
                 'nilai_dosen_login'    => '1',
                 'nilai_login_as'       => 'Dosen',
-                'nilai_id_hello'       => $user->id_penilaian_dosen,
+                'nilai_id_hello'       => $user->id_dosen,
                 'nilai_hello'          => $user->nama_dosen,
             );
             $this->session->set_userdata($userdata);
