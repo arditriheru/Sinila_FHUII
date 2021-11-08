@@ -37,10 +37,30 @@
                                 <div class="row">
 
                                     <div class="col-lg-12">
-
+                                        <div class="col-lg-6">
+                                            <table id="dataTablesAsc1" class="table table-bordered">
+                                                <form action="<?= base_url('dosen/userDosen/tambahBobotNilai') ?>" method="post" enctype="multipart/form-data">
+                                                    <tr>
+                                                        <td class="text-center"><strong> UTS : </strong>
+                                                            <input type="hidden" name="id_jadwal" value="<?= $this->input->get('id_jadwal'); ?>">
+                                                            <input type="number" name="uts" style="width: 80px;"> %
+                                                        </td>
+                                                        <td class="text-center"><strong> UAS : </strong>
+                                                            <input type="number" name="uas" style="width: 80px;"> %
+                                                        </td>
+                                                        <td class="text-center"><strong> Tugas : </strong>
+                                                            <input type="number" name="tugas" style="width: 80px;"> %
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button class="btn btn-primary">Submit</button>
+                                                        </td>
+                                                    </tr>
+                                                </form>
+                                            </table>
+                                        </div>
+                                        <hr>
                                         <form class="form-prevent" action="<?php echo base_url('dosen/userDosen/inputNilai') ?>" method="post" enctype="multipart/form-data">
-
-                                            <table id="dataTablesAsc2" class="table table-bordered table-hover mt-5">
+                                            <table id="dataTablesAsc2" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" rowspan="2">#</th>

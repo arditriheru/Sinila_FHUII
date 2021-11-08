@@ -150,6 +150,25 @@ class UserDosen extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
+    // input bobot nilai
+    public function tambahBobotNilai()
+    {
+        $data = array(
+            'id_jadwal' => $this->input->post('id_jadwal'),
+            'uts'       => $this->input->post('uts'),
+            'uas'       => $this->input->post('uas'),
+            'tugas'     => $this->input->post('tugas'),
+        );
+
+        if (!$this->mUserDosen->insertData('bobot_nilai', $data)) {
+            $this->session->set_flashdata('success', 'Berhasil upload data');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata('error', 'Gagal upload data');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
     // Input nilai
     public function inputNilai()
     {

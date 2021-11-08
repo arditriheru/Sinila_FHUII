@@ -114,7 +114,7 @@ class mUserDosen extends CI_Model
 
     function dataMatkul($where)
     {
-        $query = $this->db->select('matakuliah.*, jadwal.kelas')
+        $query = $this->db->select('matakuliah.*, jadwal.*')
             ->from('jadwal')
             ->join('matakuliah', 'jadwal.id_matakuliah = matakuliah.id_matakuliah')
             ->join('semester', 'jadwal.id_semester = semester.id_semester')
