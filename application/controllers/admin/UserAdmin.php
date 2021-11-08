@@ -51,16 +51,17 @@ class UserAdmin extends CI_Controller
 
         $sort = $this->input->get('short');
 
-        $data['countMhs']       = $this->mUserAdmin->dataIndex('absensi.id_mahasiswa', 'mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countDsn']       = $this->mUserAdmin->dataIndex('jadwal.id_dosen', 'mahasiswa.nama_mahasiswa ASC')->num_rows();
-        $data['countMkl']       = $this->mUserAdmin->dataIndex('jadwal.id_matakuliah', 'mahasiswa.nama_mahasiswa ASC')->num_rows();
+        $data['countMhs']       = $this->mUserAdmin->dataAbsensi('absensi.id_absensi IS NOT NULL')->num_rows();
+        $data['countDsn']       = $this->mUserAdmin->dataDosen()->num_rows();
+        $data['countMkl']       = $this->mUserAdmin->dataMatkul('matakuliah.id_matakuliah IS NOT NULL', 'jadwal.id_matakuliah')->num_rows();
         $data['dataThnAkad']    = $this->db->query('SELECT * FROM thn_akademik ORDER BY id_thn_akademik DESC LIMIT 10')->result();
 
         $data['dataIndex'] = $this->mUserAdmin->dataMatkul(
             array(
                 'semester.id_semester'  => $periodeAktif->row()->nama_semester,
                 'thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
-            )
+            ),
+            'jadwal.id_matakuliah, jadwal.kelas'
         )->result();
 
         $this->load->view('templates/header', $data);
@@ -111,7 +112,8 @@ class UserAdmin extends CI_Controller
             array(
                 'semester.id_semester'  => $this->input->get('semester'),
                 'thn_akademik.thn_akademik'       => $this->input->get('thn_akademik'),
-            )
+            ),
+            'jadwal.id_matakuliah, jadwal.kelas'
         )->result();
 
         $matakuliah = $this->input->get('matakuliah');

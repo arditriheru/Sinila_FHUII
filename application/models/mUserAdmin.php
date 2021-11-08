@@ -127,7 +127,7 @@ class mUserAdmin extends CI_Model
         return $query;
     }
 
-    function dataMatkul($where)
+    function dataMatkul($where, $groupby)
     {
         $query = $this->db->select('matakuliah.*, jadwal.kelas')
             ->from('jadwal')
@@ -135,7 +135,7 @@ class mUserAdmin extends CI_Model
             ->join('semester', 'jadwal.id_semester = semester.id_semester')
             ->join('thn_akademik', 'semester.id_thn_akademik = thn_akademik.id_thn_akademik')
             ->where($where)
-            ->group_by('jadwal.id_matakuliah, jadwal.kelas')
+            ->group_by($groupby)
             ->get();
         return $query;
     }
