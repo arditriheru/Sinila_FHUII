@@ -98,30 +98,23 @@
                                     <!-- col-lg-6 -->
                                     <div class="col-lg-12">
 
-                                        <table id="dataTablesAsc1" class="table table-bordered table-hover">
+                                        <table id="dataTablesAsc1" class="table table-bordered table-hover mt-5">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" rowspan="2">#</th>
-                                                    <th class="text-center" rowspan="2">Nama Mahasiswa</th>
-                                                    <th class="text-center" rowspan="2">Matakuliah</th>
-                                                    <th class="text-center" colspan="3">Nilai</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-center">UTS</th>
-                                                    <th class="text-center">UAS</th>
-                                                    <th class="text-center">Tugas</th>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Matakuliah</th>
+                                                    <th class="text-center">Kelas</th>
+                                                    <th class="text-center">SKS</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1;
                                                 foreach ($dataIndex as $d) : ?>
                                                     <tr>
-                                                        <td class="text-center"><?= $no++; ?></td>
-                                                        <td class="text-left"><?= $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                        <td class="text-left"><?php echo ' (' . $d->kelas . ') ' . $d->id_penilaian_matakuliah . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
-                                                        <td class="text-center"><?= $d->uts; ?></td>
-                                                        <td class="text-center"><?= $d->uas; ?></td>
-                                                        <td class="text-center"><?= $d->tugas; ?></td>
+                                                        <td class="text-center"><?php echo $no++; ?></td>
+                                                        <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataDetail?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester . '&matakuliah=' . $d->id_penilaian_matakuliah . '&kelas=' . $d->kelas) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                        <td class="text-center"><?php echo $d->kelas; ?></td>
+                                                        <td class="text-center"><?php echo $d->sks; ?></td>
                                                     </tr>
 
                                                 <?php endforeach; ?>

@@ -114,13 +114,13 @@ class mUserDosen extends CI_Model
 
     function dataMatkul($where)
     {
-        $query = $this->db->select('penilaian_matakuliah.*')
+        $query = $this->db->select('penilaian_matakuliah.*, penilaian_jadwal.kelas')
             ->from('penilaian_jadwal')
             ->join('penilaian_matakuliah', 'penilaian_jadwal.id_penilaian_matakuliah = penilaian_matakuliah.id_penilaian_matakuliah')
             ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
             ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
             ->where($where)
-            ->group_by('penilaian_jadwal.id_penilaian_matakuliah')
+            ->group_by('penilaian_jadwal.kelas')
             ->get();
         return $query;
     }
@@ -135,7 +135,7 @@ class mUserDosen extends CI_Model
             ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
             ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
             ->where($where)
-            ->group_by('penilaian_absensi.id_penilaian_mahasiswa')
+            // ->group_by('penilaian_absensi.id_penilaian_mahasiswa')
             ->order_by('penilaian_mahasiswa.nama_mahasiswa')
             ->get();
         return $query;

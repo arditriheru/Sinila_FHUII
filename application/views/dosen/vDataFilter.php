@@ -50,7 +50,7 @@
                                                     <tr>
                                                         <th class="text-center">#</th>
                                                         <th class="text-center">Matakuliah</th>
-                                                        <th class="text-center">SKS</th>
+                                                        <th class="text-center">Kelas</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -58,8 +58,8 @@
                                                     foreach ($dataMatkul as $d) : ?>
                                                         <tr>
                                                             <td class="text-center"><?php echo $no++; ?></td>
-                                                            <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=' . $this->input->get('semester') . '&matakuliah=' . $d->id_penilaian_matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
-                                                            <td class="text-center"><?php echo $d->sks; ?></td>
+                                                            <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataFilter?menuUtama=active&thn_akademik=' . $this->input->get('thn_akademik') . '&semester=' . $this->input->get('semester') . '&matakuliah=' . $d->id_penilaian_matakuliah . '&kelas=' . $d->kelas) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                            <td class="text-center"><?php echo $d->kelas; ?></td>
                                                         </tr>
 
                                                     <?php endforeach; ?>

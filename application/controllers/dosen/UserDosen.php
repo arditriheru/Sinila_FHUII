@@ -66,18 +66,47 @@ class UserDosen extends CI_Controller
             'penilaian_mahasiswa.nama_mahasiswa ASC'
         )->num_rows();
 
-        $data['dataIndex'] = $this->mUserDosen->dataIndex(
+        $data['dataIndex'] = $this->mUserDosen->dataMatkul(
             array(
-                'penilaian_semester.aktif'              => 1,
-                'penilaian_jadwal.id_penilaian_dosen'   => $id_dosen,
-            ),
-            'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC'
+                'penilaian_semester.id_penilaian_semester'  => 1,
+                'penilaian_thn_akademik.thn_akademik'       => '2021/2022',
+                'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
+            )
         )->result();
 
         $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('dosen/vDashboard', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function dataDetail()
+    {
+        $lang = $this->mUserDosen->switchLang($this->session->userdata('nilai_bahasa'))->result();
+
+        foreach ($lang as $d) {
+            $data['lan_' . $d->id_multi_bahasa] = $d->translate;
+        }
+
+        $data['title']      = getDateIndo();
+        $data['subtitle']   = "Data Detail";
+
+        $id_dosen = $this->session->userdata('nilai_id_dosen');
+
+        $matakuliah = $this->input->get('matakuliah');
+        $kelas = $this->input->get('kelas');
+
+        $data['dataAbsensi']  = $this->mUserDosen->dataAbsensi(
+            array(
+                'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
+                'penilaian_jadwal.kelas'                    => $kelas,
+                'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
+            )
+        )->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('dosen/vDataDetail', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -103,11 +132,13 @@ class UserDosen extends CI_Controller
         )->result();
 
         $matakuliah = $this->input->get('matakuliah');
+        $kelas = $this->input->get('kelas');
 
         if (isset($matakuliah)) {
             $data['dataAbsensi']  = $this->mUserDosen->dataAbsensi(
                 array(
                     'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
+                    'penilaian_jadwal.kelas'                    => $kelas,
                     'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
                 )
             )->result();
