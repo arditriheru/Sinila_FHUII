@@ -120,7 +120,7 @@ class mUserDosen extends CI_Model
             ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
             ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
             ->where($where)
-            ->group_by('penilaian_jadwal.kelas')
+            ->group_by('penilaian_jadwal.id_penilaian_matakuliah, penilaian_jadwal.kelas')
             ->get();
         return $query;
     }
@@ -135,7 +135,6 @@ class mUserDosen extends CI_Model
             ->join('penilaian_semester', 'penilaian_jadwal.id_penilaian_semester = penilaian_semester.id_penilaian_semester')
             ->join('penilaian_thn_akademik', 'penilaian_semester.id_penilaian_thn_akademik = penilaian_thn_akademik.id_penilaian_thn_akademik')
             ->where($where)
-            // ->group_by('penilaian_absensi.id_penilaian_mahasiswa')
             ->order_by('penilaian_mahasiswa.nama_mahasiswa')
             ->get();
         return $query;

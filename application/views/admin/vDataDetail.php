@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <?php $this->view('dosen/vMenu'); ?>
+    <?php $this->view('admin/vMenu'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -62,13 +62,8 @@
                                                             <td class="text-center"><?php echo $no++; ?></td>
                                                             <td class="text-left"><?php echo $d->id_penilaian_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
                                                             <td class="text-left"><?php echo ' (Kelas ' . $d->kelas . ') ' . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
-                                                            <td class="text-center">
-                                                                <input type="hidden" name="id_penilaian_absensi[]" style="width: 60px;" value="<?= $d->id_penilaian_absensi ?>">
-                                                                <input type="number" name="uts[]" style="width: 60px;" value="<?= $d->uts; ?>">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input type="number" name="uas[]" style="width: 60px;" value="<?= $d->uas; ?>">
-                                                            </td>
+                                                            <td class="text-center"><?= $d->uts; ?></td>
+                                                            <td class="text-center"><?= $d->uas; ?></td>
                                                             <td class="text-center"><?= $d->tugas; ?></td>
                                                         </tr>
 

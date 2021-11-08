@@ -97,14 +97,12 @@
                                     </div>
                                     <!-- col-lg-6 -->
                                     <div class="col-lg-12">
-
                                         <table id="dataTablesAsc1" class="table table-bordered table-hover mt-5">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">#</th>
                                                     <th class="text-center">Matakuliah</th>
                                                     <th class="text-center">Kelas</th>
-                                                    <th class="text-center">SKS</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -112,9 +110,8 @@
                                                 foreach ($dataIndex as $d) : ?>
                                                     <tr>
                                                         <td class="text-center"><?php echo $no++; ?></td>
-                                                        <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataDetail?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester . '&matakuliah=' . $d->id_penilaian_matakuliah . '&kelas=' . $d->kelas) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                        <td class="text-left"><?php echo '<a href="' . base_url('dosen/userDosen/dataDetail?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester . '&matakuliah=' . $d->id_penilaian_matakuliah . '&kelas=' . $d->kelas . '&namamk=' . $d->matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
                                                         <td class="text-center"><?php echo $d->kelas; ?></td>
-                                                        <td class="text-center"><?php echo $d->sks; ?></td>
                                                     </tr>
 
                                                 <?php endforeach; ?>

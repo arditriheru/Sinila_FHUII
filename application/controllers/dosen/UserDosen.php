@@ -41,8 +41,9 @@ class UserDosen extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
+        $periodeAktif = $this->mUserDosen->periodeAktif();
 
-        if ($this->mUserDosen->periodeAktif()->num_rows() > 0) {
+        if ($periodeAktif->num_rows() > 0) {
             $data['dataPeriodeAktif']   = $this->mUserDosen->periodeAktif()->row();
         } else {
             $data['dataPeriodeAktif']   = 'Kosong';
@@ -68,8 +69,8 @@ class UserDosen extends CI_Controller
 
         $data['dataIndex'] = $this->mUserDosen->dataMatkul(
             array(
-                'penilaian_semester.id_penilaian_semester'  => 1,
-                'penilaian_thn_akademik.thn_akademik'       => '2021/2022',
+                'penilaian_semester.id_penilaian_semester'  => $periodeAktif->row()->nama_semester,
+                'penilaian_thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
                 'penilaian_jadwal.id_penilaian_dosen'       => $id_dosen,
             )
         )->result();

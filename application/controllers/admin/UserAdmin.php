@@ -41,7 +41,9 @@ class UserAdmin extends CI_Controller
         $data['title']      = getDateIndo();
         $data['subtitle']   = "Dashboard";
 
-        if ($this->mUserAdmin->periodeAktif()->num_rows() > 0) {
+        $periodeAktif = $this->mUserAdmin->periodeAktif();
+
+        if ($periodeAktif->num_rows() > 0) {
             $data['dataPeriodeAktif']   = $this->mUserAdmin->periodeAktif()->row();
         } else {
             $data['dataPeriodeAktif']   = 'Kosong';
@@ -54,16 +56,43 @@ class UserAdmin extends CI_Controller
         $data['countMkl']       = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_mahasiswa.nama_mahasiswa ASC')->num_rows();
         $data['dataThnAkad']    = $this->db->query('SELECT * FROM penilaian_thn_akademik ORDER BY id_penilaian_thn_akademik DESC LIMIT 10')->result();
 
-        if ($sort == 2) {
-            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_dosen', 'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC')->result();
-        } elseif ($sort == 3) {
-            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_jadwal.id_penilaian_matakuliah', 'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC')->result();
-        } else {
-            $data['dataIndex'] = $this->mUserAdmin->dataIndex('penilaian_mahasiswa.id_penilaian_mahasiswa', 'penilaian_matakuliah.matakuliah, penilaian_mahasiswa.nama_mahasiswa ASC')->result();
-        }
+        $data['dataIndex'] = $this->mUserAdmin->dataMatkul(
+            array(
+                'penilaian_semester.id_penilaian_semester'  => $periodeAktif->row()->nama_semester,
+                'penilaian_thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
+            )
+        )->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/vDashboard', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function dataDetail()
+    {
+        $lang = $this->mUserAdmin->switchLang($this->session->userdata('nilai_bahasa'))->result();
+
+        foreach ($lang as $d) {
+            $data['lan_' . $d->id_multi_bahasa] = $d->translate;
+        }
+
+        $data['title']      = getDateIndo();
+        $data['subtitle']   = "Data Detail";
+
+        $id_dosen = $this->session->userdata('nilai_id_dosen');
+
+        $matakuliah = $this->input->get('matakuliah');
+        $kelas = $this->input->get('kelas');
+
+        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi(
+            array(
+                'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
+                'penilaian_jadwal.kelas'                    => $kelas,
+            )
+        )->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('admin/vDataDetail', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -86,11 +115,13 @@ class UserAdmin extends CI_Controller
         )->result();
 
         $matakuliah = $this->input->get('matakuliah');
+        $kelas      = $this->input->get('kelas');
 
         if (isset($matakuliah)) {
             $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi(
                 array(
-                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah
+                    'penilaian_absensi.id_penilaian_matakuliah' => $matakuliah,
+                    'penilaian_jadwal.kelas'                    => $kelas,
                 )
             )->result();
         }
