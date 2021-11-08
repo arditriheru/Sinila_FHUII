@@ -29,45 +29,35 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Tahun Akademik : <strong><?= $dataPeriodeAktif->thn_akademik . ' - ' . $dataPeriodeAktif->nm_semester; ?></strong></h3>
-                            </div>
-                            <!-- /.card-header -->
-                        </div>
-                        <!-- /.card -->
-                        <div class="card">
-                            <div class="card-header">
                                 <h3 class="card-title">Data Jadwal</strong></h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <table id="dataTablesAsc1" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th class="text-center">Matakuliah</th>
-                                                    <th class="text-center">Nama Dosen</th>
-                                                    <th class="text-center">Kelas</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $no = 1;
-                                                foreach ($dataJadwal as $d) : ?>
-                                                    <tr>
-                                                        <td class="text-center"><?php echo $no++; ?></td>
-                                                        <td class="text-left"><?= '<strong>' . $d->matakuliah . '</strong>'; ?></td>
-                                                        <td class="text-left"><?= $d->nama_dosen ?></td>
-                                                        <td class="text-center"><?= $d->kelas ?></td>
-                                                    </tr>
+                                <a class="btn btn-primary mb-2" href="#" data-toggle="modal" data-target="#modalUploadJadwal">Upload Data</a>
+                                <table id="dataTablesAsc1" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Matakuliah</th>
+                                            <th class="text-center">Nama Dosen</th>
+                                            <th class="text-center">Kelas</th>
+                                            <th class="text-center">Semester</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1;
+                                        foreach ($dataJadwal as $d) : ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $no++; ?></td>
+                                                <td class="text-left"><?php echo $d->id_matakuliah . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
+                                                <td class="text-left"><?php echo $d->id_dosen . '<br><strong>' . $d->nama_dosen . '</strong>'; ?></td>
+                                                <td class="text-center"><?= $d->kelas ?></td>
+                                                <td class="text-left"><?php echo $d->nm_semester . '<br><strong>' . $d->thn_akademik . '</strong>'; ?></td>
+                                            </tr>
 
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
                             <!-- /.card-body -->
                         </div>

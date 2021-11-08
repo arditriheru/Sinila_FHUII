@@ -87,66 +87,25 @@
                         <p>Menu Utama</p>
                     </a>
                 </li>
-                <li class="nav-item <?php echo $this->input->get('menuMahasiswaOpen'); ?>">
-                    <a href="#" class="nav-link <?php echo $this->input->get('menuMahasiswa'); ?>">
+                <li class="nav-item">
+                    <a href="<?php echo base_url(); ?>admin/userAdmin/dataMahasiswa?menuMahasiswaOpen=menu-open&menuMahasiswa=active&menuLihatMahasiswa=active" class="nav-link <?php echo $this->input->get('menuLihatMahasiswa'); ?>">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>Mahasiswa<i class="fas fa-angle-left right"></i></p>
+                        <p>Mahasiswa</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>admin/userAdmin/dataMahasiswa?menuMahasiswaOpen=menu-open&menuMahasiswa=active&menuLihatMahasiswa=active" class="nav-link <?php echo $this->input->get('menuLihatMahasiswa'); ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" data-toggle="modal" data-target="#modalUploadMahasiswa" class="nav-link <?php echo $this->input->get('menuUploadMahasiswa'); ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Upload</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                <li class="nav-item <?php echo $this->input->get('menuJadwalOpen'); ?>">
-                    <a href="#" class="nav-link <?php echo $this->input->get('menuJadwal'); ?>">
+                <li class="nav-item">
+                    <a href="<?php echo base_url(); ?>admin/userAdmin/dataJadwal?menuJadwalOpen=menu-open&menuJadwal=active&menuLihatJadwal=active" class="nav-link <?php echo $this->input->get('menuLihatJadwal'); ?>">
                         <i class="nav-icon fas fa-calendar-alt"></i>
-                        <p>Jadwal<i class="fas fa-angle-left right"></i></p>
+                        <p>Jadwal</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>admin/userAdmin/dataJadwal?menuJadwalOpen=menu-open&menuJadwal=active&menuLihatJadwal=active" class="nav-link <?php echo $this->input->get('menuLihatJadwal'); ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" data-toggle="modal" data-target="#modalUploadJadwal" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Upload</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                <li class="nav-item <?php echo $this->input->get('menuAbsensiOpen'); ?>">
-                    <a href="#" class="nav-link <?php echo $this->input->get('menuAbsensi'); ?>">
+                <li class="nav-item">
+                    <a href="<?php echo base_url(); ?>admin/userAdmin/dataAbsensi?menuAbsensiOpen=menu-open&menuAbsensi=active&menuLihatAbsensi=active" class="nav-link <?php echo $this->input->get('menuLihatAbsensi'); ?>">
                         <i class="nav-icon fas fa-list"></i>
-                        <p>Absensi<i class="fas fa-angle-left right"></i></p>
+                        <p>Absensi</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>admin/userAdmin/dataAbsensi?menuAbsensiOpen=menu-open&menuAbsensi=active&menuLihatAbsensi=active" class="nav-link <?php echo $this->input->get('menuLihatAbsensi'); ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" data-toggle="modal" data-target="#modalUploadAbsen" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Upload</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
+
                 <li class="nav-header">MASTER DATA</li>
 
                 <li class="nav-item">

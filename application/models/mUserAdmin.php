@@ -117,8 +117,8 @@ class mUserAdmin extends CI_Model
     {
         $query = $this->db->select("*,
         CASE
-            WHEN mahasiswa.id_semester=1 THEN 'Ganjil'
-            WHEN mahasiswa.id_semester=2 THEN 'Genap'
+            WHEN semester.id_semester=1 THEN 'Ganjil'
+            WHEN semester.id_semester=2 THEN 'Genap'
             END nm_semester")
             ->from('mahasiswa')
             ->join('semester', 'mahasiswa.id_semester = semester.id_semester')
@@ -171,11 +171,16 @@ class mUserAdmin extends CI_Model
 
     function dataJadwal()
     {
-        $query = $this->db->select('matakuliah.matakuliah, dosen.nama_dosen, jadwal.kelas')
+        $query = $this->db->select("*,
+        CASE
+            WHEN semester.id_semester=1 THEN 'Ganjil'
+            WHEN semester.id_semester=2 THEN 'Genap'
+            END nm_semester")
             ->from('jadwal')
             ->join('matakuliah', 'jadwal.id_matakuliah = matakuliah.id_matakuliah')
             ->join('dosen', 'jadwal.id_dosen = dosen.id_dosen')
             ->join('semester', 'jadwal.id_semester = semester.id_semester')
+            ->join('thn_akademik', 'semester.id_thn_akademik = thn_akademik.id_thn_akademik')
             ->order_by('matakuliah.matakuliah, jadwal.kelas ASC')
             ->get();
         return $query;
@@ -183,7 +188,11 @@ class mUserAdmin extends CI_Model
 
     function dataAbsensi($where)
     {
-        $query = $this->db->select('*')
+        $query = $this->db->select("*,
+        CASE
+            WHEN semester.id_semester=1 THEN 'Ganjil'
+            WHEN semester.id_semester=2 THEN 'Genap'
+            END nm_semester")
             ->from('jadwal')
             ->join('matakuliah', 'jadwal.id_matakuliah = matakuliah.id_matakuliah')
             ->join('absensi', 'jadwal.id_matakuliah = absensi.id_matakuliah', 'left')
