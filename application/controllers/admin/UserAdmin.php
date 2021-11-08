@@ -367,7 +367,13 @@ class UserAdmin extends CI_Controller
             $data['dataPeriodeAktif']   = 'Kosong';
         }
 
-        $data['dataAbsensi']  = $this->mUserAdmin->dataAbsensi('absensi.id_absensi IS NOT NULL')->result();
+        $data['dataIndex'] = $this->mUserAdmin->dataMatkul(
+            array(
+                'semester.id_semester'  => $periodeAktif->row()->nama_semester,
+                'thn_akademik.thn_akademik'       => $periodeAktif->row()->thn_akademik,
+            ),
+            'jadwal.id_matakuliah, jadwal.kelas'
+        )->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/vDataAbsensi', $data);

@@ -34,23 +34,21 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <a class="btn btn-primary mb-2" href="#" data-toggle="modal" data-target="#modalUploadAbsen">Upload Data</a>
-                                <table id="dataTablesAsc1" class="table table-bordered table-hover">
+                                <table id="dataTablesAsc1" class="table table-bordered table-hover mt-5">
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
-                                            <th class="text-center">Nama Mahasiswa</th>
                                             <th class="text-center">Matakuliah</th>
-                                            <th class="text-center">Semester</th>
+                                            <th class="text-center">Kelas</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $no = 1;
-                                        foreach ($dataAbsensi as $d) : ?>
+                                        foreach ($dataIndex as $d) : ?>
                                             <tr>
                                                 <td class="text-center"><?php echo $no++; ?></td>
-                                                <td class="text-left"><?php echo $d->id_mahasiswa . '@student.uii.ac.id<br><strong>' . $d->nama_mahasiswa . '</strong>'; ?></td>
-                                                <td class="text-left"><?php echo $d->id_matakuliah . '<br><strong>' . $d->matakuliah . '</strong>'; ?></td>
-                                                <td class="text-left"><?php echo $d->nm_semester . '<br><strong>' . $d->thn_akademik . '</strong>'; ?></td>
+                                                <td class="text-left"><?php echo '<a href="' . base_url('admin/userAdmin/dataDetail?menuUtama=active&thn_akademik=' . $dataPeriodeAktif->thn_akademik . '&semester=' . $dataPeriodeAktif->nama_semester . '&matakuliah=' . $d->id_matakuliah . '&kelas=' . $d->kelas . '&namamk=' . $d->matakuliah) . '"><strong>' . $d->matakuliah . '</strong></a>'; ?></td>
+                                                <td class="text-center"><?php echo $d->kelas; ?></td>
                                             </tr>
 
                                         <?php endforeach; ?>
